@@ -96,7 +96,7 @@ class Breadcrumbs_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'js/plugin-name-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'js/plugin-breadcrumbs-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

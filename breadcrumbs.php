@@ -96,3 +96,8 @@ function settings_link( $actions, $plugin_file ){
 	array_unshift( $actions, $settings_link );
 	return $actions;
 }
+
+add_action( 'plugins_loaded', 'true_load_plugin_textdomain' );
+function true_load_plugin_textdomain() {
+	load_plugin_textdomain( 'breadcrumbs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
