@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-21 12:13+0400\n"
-"PO-Revision-Date: 2019-10-21 12:58+0000\n"
+"POT-Creation-Date: 2019-10-23 14:13+0000\n"
+"PO-Revision-Date: 2019-10-23 14:14+0000\n"
 "Last-Translator: wp-admin <example@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -27,3 +27,31 @@ msgstr "Позиция хлебных крошек"
 #: ../wp-content/plugins/breadcrumbs/admin/settings.php:76
 msgid "Breadcrumbs"
 msgstr "Хлебных крошки"
+
+msgid "This code must be inserted on the page where the breadcrumbs should be."
+msgstr "Этот код нужно вставить на страницу, где должны быть хлебные крошки."
+
+msgctxt "Записи с тегом"
+msgid "Posts Tagged"
+msgstr "Записи с тегом"
+
+msgid "Author Articles"
+msgstr "Статьи автора"
+
+msgid "Comments Page"
+msgstr "Страница комментариев"
+
+msgid "Show home link"
+msgstr "Показывать ссылку \"Главная\""
+
+msgid "Home Page"
+msgstr "Домашняя страница"
+
+msgid "Show breadcrumbs on the home page"
+msgstr "Показывать \"хлебные крошки\" на главной странице"
+
+msgid "Show title of current page"
+msgstr "Показывать название текущей страницы"
+
+msgid "Current Page"
+msgstr "Текущая Страница"

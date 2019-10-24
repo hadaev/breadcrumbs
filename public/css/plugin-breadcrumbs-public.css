@@ -2,3 +2,19 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+.bc-display-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.bc-flex-justify-content-left {
+  justify-content: left;
+}
+.bc-flex-justify-content-right {
+  justify-content: right;
+}
+.bc-flex-justify-content-center {
+  justify-content: center;
+}
+
+/*# sourceMappingURL=plugin-breadcrumbs-public.css.map */

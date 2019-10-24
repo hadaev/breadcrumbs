@@ -5,6 +5,12 @@ $option_name = 'true_options';
 $o = get_option( $option_name );
 
 switch ( $type ) {
+	case 'shortcode':
+		$o[$id] = esc_attr( stripslashes($o[$id]) );
+		if (!$o[$id])$o[$id] = '[breadcrumbs show_home_link=1 show_on_home=0 show_current=1]';
+		echo "<input class='regular-text' type='text' id='$id' name='" . $option_name . "[$id]' value='$o[$id]' readonly />";
+		echo ($desc != '') ? "<br /><span class='description'>$desc</span>" : "";
+		break;
 	case 'text':
 		$o[$id] = esc_attr( stripslashes($o[$id]) );
 		echo "<input class='regular-text' type='text' id='$id' name='" . $option_name . "[$id]' value='$o[$id]' />";

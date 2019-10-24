@@ -51,6 +51,7 @@ class Breadcrumbs_Public {
 
 		$this->Breadcrumbs = $Breadcrumbs;
 		$this->version = $version;
+		add_shortcode( 'breadcrumbs', array($this, 'breadcrumbs_frontend'));
 
 	}
 
@@ -73,7 +74,7 @@ class Breadcrumbs_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'css/plugin-name-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'css/plugin-breadcrumbs-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -100,35 +101,46 @@ class Breadcrumbs_Public {
 
 	}
 
-	public function breadcrumbs_frontend(){
-//		dimox_breadcrumbs('display-flex flex-justify-content-start')
-//		function dimox_breadcrumbs($className) {
-		$className = 'display-flex flex-justify-content-start';
-			/* === ОПЦИИ === */
-			$text['home'] = 'Главная'; // текст ссылки "Главная"
-			$text['category'] = '%s'; // текст для страницы рубрики
-			$text['search'] = 'Результаты поиска по запросу "%s"'; // текст для страницы с результатами поиска
-			$text['tag'] = 'Записи с тегом "%s"'; // текст для страницы тега
-			$text['author'] = 'Статьи автора %s'; // текст для страницы автора
-			$text['404'] = 'Ошибка 404'; // текст для страницы 404
-			$text['page'] = 'Страница %s'; // текст 'Страница N'
-			$text['cpage'] = 'Страница комментариев %s'; // текст 'Страница комментариев N'
+	public function breadcrumbs_frontend($atts){
+		$atts = shortcode_atts( array(
+			'position' => 'left',
+			'show_home_link' => 1,
+			'show_on_home' => 0,
+			'show_current' => 1
+		), $atts, 'breadcrumbs' );
 
-			$wrap_before = '<ul class="breadcrumbs '. $className .'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
+		var_dump($atts);
+//		esc_html($atts['foo']);
+
+		$className = 'bc-display-flex bc-flex-justify-content-'.$atts['position'];
+		$show_home_link = $atts['show_home_link']; // 1 - показывать ссылку "Главная", 0 - не показывать
+		$show_on_home = $atts['show_on_home']; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
+		$show_current = $atts['show_current']; // 1 - показывать название текущей страницы, 0 - не показывать
+
+			/* === ОПЦИИ === */
+			$text['home'] = __('Home'); // текст ссылки "Главная"
+			$text['category'] = '%s'; // текст для страницы рубрики
+			$text['search'] = __('Search Results for', 'breadcrumbs'). "%s"; // текст для страницы с результатами поиска
+			$text['tag'] = __('Posts Tagged'). "%s"; // текст для страницы тега
+			$text['author'] = __('Author Articles', 'breadcrumbs'). "%s"; // текст для страницы автора
+			$text['404'] = __('Error') .'404'; // текст для страницы 404
+			$text['page'] = __('Page').' %s'; // текст 'Страница N'
+			$text['cpage'] = __('Comments Page', 'breadcrumbs').' %s'; // текст 'Страница комментариев N'
+
+			$wrap_before = '<ul class="bc-list-item '. $className .'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
 			$wrap_after = '</ul><!-- .breadcrumbs -->'; // закрывающий тег обертки
+
 			$sep = '>'; // разделитель между "крошками"
-			$sep_before = '<span class="sep">'; // тег перед разделителем
+			$sep_before = '<span class="bc-sep">'; // тег перед разделителем
 			$sep_after = '</span>'; // тег после разделителя
-			$show_home_link = 1; // 1 - показывать ссылку "Главная", 0 - не показывать
-			$show_on_home = 0; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
-			$show_current = 1; // 1 - показывать название текущей страницы, 0 - не показывать
-			$before = '<li class="current"><span class="no-active"></span>'; // тег перед текущей "крошкой"
+
+			$before = '<li class="bc-current"><span class="bc-no-active"></span>'; // тег перед текущей "крошкой"
 			$after = '</span></li>'; // тег после текущей "крошки"
 			/* === КОНЕЦ ОПЦИЙ === */
 
 			global $post;
 			$home_url = home_url('/');
-			$link_before = '<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';
+			$link_before = '<li class="bc-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';
 			$link_after = '</li>';
 			$link_attr = ' itemprop="item"';
 			$link_in_before = '<span itemprop="name">';
@@ -153,7 +165,7 @@ class Breadcrumbs_Public {
 					if ($cat->parent != 0) {
 						$cats = get_category_parents($cat->parent, TRUE, $sep);
 						$cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						if ($show_home_link) echo $sep;
 						echo $cats;
 					}
@@ -197,9 +209,9 @@ class Breadcrumbs_Public {
 						if ($show_current) echo $sep . $before . get_the_title() . $after;
 					} else {
 						$cat = get_the_category(); $cat = $cat[0];
-						$cats = get_category_parents($cat, TRUE, $sep);
+						$cats = get_category_parents( (int) $cat, TRUE, $sep);
 						if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 						if ( get_query_var('cpage') ) {
 							echo $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
@@ -222,8 +234,8 @@ class Breadcrumbs_Public {
 					$parent = get_post($parent_id);
 					$cat = get_the_category($parent->ID); $cat = $cat[0];
 					if ($cat) {
-						$cats = get_category_parents($cat, TRUE, $sep);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = get_category_parents( (int) $cat, TRUE, $sep);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 					}
 					printf($link, get_permalink($parent), $parent->post_title);
@@ -237,7 +249,7 @@ class Breadcrumbs_Public {
 					if ($parent_id != $frontpage_id) {
 						$breadcrumbs = array();
 						while ($parent_id) {
-							$page = get_page($parent_id);
+							$page = get_post($parent_id);
 							if ($parent_id != $frontpage_id) {
 								$breadcrumbs[] = sprintf($link, get_permalink($page->ID), get_the_title($page->ID));
 							}
@@ -283,7 +295,6 @@ class Breadcrumbs_Public {
 				echo $wrap_after;
 
 			}
-//		} // end of dimox_breadcrumbs()
 	}
 
 }

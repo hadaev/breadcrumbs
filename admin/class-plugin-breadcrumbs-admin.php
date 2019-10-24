@@ -52,7 +52,6 @@ class Breadcrumbs_Admin {
 
 		$this->Breadcrumbs = $Breadcrumbs;
 		$this->version = $version;
-//		$this->true_page = 'myparameters.php';
 		add_action( 'admin_init', array($this, 'true_option_settings') );
 		add_action( 'admin_menu', array($this, 'true_options') );
 
@@ -104,20 +103,10 @@ class Breadcrumbs_Admin {
 
 	}
 
-	public function breadcrumbs_CreateAdminMenu() {
-		add_options_page(
-			__('Breadcrumbs Options', 'plugin-breadcrumbs'),
-			__('Breadcrumbs', 'plugin-breadcrumbs'),
-			'manage_options',
-			'breadcrumbs',
-			array($this, 'breadcrumbsOptions')
-		);
-	}
-
 	public function true_options() {
 		global $true_page;
-		add_options_page( 'Параметры',
-			'Параметры',
+		add_options_page( __('Breadcrumbs', 'breadcrumbs'),
+			__('Breadcrumbs', 'breadcrumbs'),
 			'manage_options',
 			'breadcrumbs',
 			array($this, 'true_option_page'));
@@ -125,8 +114,8 @@ class Breadcrumbs_Admin {
 	public function true_option_page(){
 
 		?><div class="wrap">
-		<h2>Хлебные крошки</h2>
-		<form method="post" enctype="multipart/form-data" action="options.php">
+		<h2><?php _e('Breadcrumbs', 'breadcrumbs') ?></h2>
+		<form method="post" enctype="multipart/form-data" action="options.php" id="bc-form">
 			<?php
 			settings_fields('true_options'); // меняем под себя только здесь (название настроек)
 			do_settings_sections('breadcrumbs');
@@ -154,53 +143,89 @@ class Breadcrumbs_Admin {
 		register_setting( 'true_options', 'true_options', array($this, 'true_validate_settings') ); // true_options
 
 		// Добавляем секцию
-		add_settings_section( 'true_section_1', 'Текстовые поля ввода', '', 'breadcrumbs' );
+		add_settings_section( 'true_section_1', __('Settings'), '', 'breadcrumbs' );
+
+		// Создадим текстовое поле в первой секции
+//		$true_field_params = array(
+//			'type'      => 'text', // тип
+//			'id'        => 'my_text',
+//			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs'), // описание
+//			'label_for' => 'my_text' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
+//		);
+//		add_settings_field( 'my_text_field', __('Text'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		// Создадим текстовое поле в первой секции
 		$true_field_params = array(
-			'type'      => 'text', // тип
-			'id'        => 'my_text',
-			'desc'      => 'Пример обычного текстового поля.', // описание
-			'label_for' => 'my_text' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
+			'type'      => 'shortcode', // тип
+			'id'        => 'my_shortcode',
+			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs'), // описание
+			'label_for' => 'my_shortcode' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
 		);
-		add_settings_field( 'my_text_field', 'Текстовое поле', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
-
-		// Создадим textarea в первой секции
-		$true_field_params = array(
-			'type'      => 'textarea',
-			'id'        => 'my_textarea',
-			'desc'      => 'Пример большого текстового поля.'
-		);
-		add_settings_field( 'my_textarea_field', 'Большое текстовое поле', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
-
-		// Добавляем вторую секцию настроек
-
-		add_settings_section( 'true_section_2', 'Другие поля ввода', '', 'breadcrumbs' );
-
-		// Создадим чекбокс
-		$true_field_params = array(
-			'type'      => 'checkbox',
-			'id'        => 'my_checkbox',
-			'desc'      => 'Пример чекбокса.'
-		);
-		add_settings_field( 'my_checkbox_field', 'Чекбокс', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
-
-		// Создадим выпадающий список
-		$true_field_params = array(
-			'type'      => 'select',
-			'id'        => 'my_select',
-			'desc'      => 'Пример выпадающего списка.',
-			'vals'		=> array( 'val1' => 'Значение 1', 'val2' => 'Значение 2', 'val3' => 'Значение 3')
-		);
-		add_settings_field( 'my_select_field', 'Выпадающий список', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'my_shortcode_field', __('Shortcode'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		// Создадим радио-кнопку
 		$true_field_params = array(
 			'type'      => 'radio',
 			'id'      => 'my_radio',
-			'vals'		=> array( 'val1' => 'Значение 1', 'val2' => 'Значение 2', 'val3' => 'Значение 3')
+			'vals'		=> array( 'left' => __('Left'), 'center' => __('Center'), 'right' => __('Right'))
 		);
-		add_settings_field( 'my_radio', 'Радио кнопки', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'my_radio', __('Position'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+
+		// Создадим чекбокс
+		$true_field_params = array(
+			'type'      => 'checkbox',
+			'id'        => 'show_home_link',
+			'desc'      => __('Show home link', 'breadcrumbs')
+		);
+		add_settings_field( 'show_home_link_field', __('Home Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+
+		// Создадим чекбокс
+		$true_field_params = array(
+			'type'      => 'checkbox',
+			'id'        => 'show_on_home',
+			'desc'      => __('Show breadcrumbs on the home page', 'breadcrumbs')
+		);
+		add_settings_field( 'show_on_home_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+
+		// Создадим чекбокс
+		$true_field_params = array(
+			'type'      => 'checkbox',
+			'id'        => 'show_current',
+			'desc'      => __('Show title of current page', 'breadcrumbs')
+		);
+		add_settings_field( 'show_current_field', __('Current Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+
+
+
+//		// Создадим textarea в первой секции
+//		$true_field_params = array(
+//			'type'      => 'textarea',
+//			'id'        => 'my_textarea',
+//			'desc'      => 'Пример большого текстового поля.'
+//		);
+//		add_settings_field( 'my_textarea_field', 'Большое текстовое поле', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+//
+//		// Добавляем вторую секцию настроек
+//
+//		add_settings_section( 'true_section_2', 'Другие поля ввода', '', 'breadcrumbs' );
+//
+//		// Создадим чекбокс
+//		$true_field_params = array(
+//			'type'      => 'checkbox',
+//			'id'        => 'my_checkbox',
+//			'desc'      => 'Пример чекбокса.'
+//		);
+//		add_settings_field( 'my_checkbox_field', 'Чекбокс', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+//
+//		// Создадим выпадающий список
+//		$true_field_params = array(
+//			'type'      => 'select',
+//			'id'        => 'my_select',
+//			'desc'      => 'Пример выпадающего списка.',
+//			'vals'		=> array( 'val1' => 'Значение 1', 'val2' => 'Значение 2', 'val3' => 'Значение 3')
+//		);
+//		add_settings_field( 'my_select_field', 'Выпадающий список', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
 
 	}
 	public function true_option_display_settings($args) {
@@ -208,16 +233,7 @@ class Breadcrumbs_Admin {
 		include(plugin_dir_path(__FILE__).'settings.php');
 
 	}
-	public function breadcrumbsOptions()
-	{
-		if (!current_user_can( 'manage_options' ))
-			wp_die( __( 'You do not have sufficient permissions to access this page.','simple_basket') );
-
-
-	}
-
 
 }
 
-$all_options = get_option('true_options'); // это массив
-var_dump($all_options); ;
+
