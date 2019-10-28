@@ -195,6 +195,13 @@ class Breadcrumbs_Admin {
 		);
 		add_settings_field( 'show_current_field', __('Current Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
+        $true_field_params = array(
+            'type'      => 'text', // тип
+            'id'        => 'bc_sep',
+            'desc'      => __('Enter a delimiter character.', 'breadcrumbs'),
+            'label_for' => 'bc_sep'
+        );
+        add_settings_field( 'bc_sep_field', __('Separator'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 
 //		// Создадим textarea в первой секции

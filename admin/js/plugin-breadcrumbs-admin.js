@@ -37,6 +37,40 @@
 		var show_on_home = '';
 		var show_current = '';
 
+		var arrForm = form.find('input:not(input[type="submit"], input[type="hidden"], input[readonly])');
+		var arrData = '';
+		$.each(arrForm, function (i,el) {
+			var value = $(el).val();
+			var self = $(el);
+			// var radio = $(el).prop('checked');
+			console.log(el);
+			// var checkbox = $(el).attr('type') === 'checkbox';
+
+			position = 'position=' + value;
+			self.data('value', position);
+			var inputId = self.attr('id');
+			var isChecked = self.prop('checked');
+			console.log(isChecked);
+			if (inputId === 'show_home_link'){
+				isChecked = isChecked? 1:0;
+				show_home_link = 'show_home_link=' + isChecked;
+				self.data('value', show_home_link);
+			}
+			if (inputId === 'show_on_home'){
+				isChecked = isChecked? 1:0;
+				show_on_home = 'show_on_home=' + isChecked;
+				self.data('value', show_on_home);
+			}
+			if (inputId === 'show_current'){
+				isChecked = isChecked? 1:0;
+				show_current = 'show_current=' + isChecked;
+				self.data('value', show_current);
+			}
+
+		});
+
+
+
 		form.on('change', 'input:not(input[type="submit"])', function () {
 			var self = $(this);
 			var type = self.attr('type');
@@ -70,21 +104,35 @@
 					break;
 			}
 
-			console.log(show_home_link);
-			console.log(show_on_home);
-			console.log(show_current);
-			console.log(position);
 			var arrForm = form.find('input:not(input[type="submit"], input[type="hidden"], input[readonly])');
 			var arrData = '';
 			$.each(arrForm, function (i,el) {
 				var dataValue = $(el).data('value');
-				arrData += dataValue?dataValue + ' ':'';
+				var radio = $(el).prop('checked');
+				console.log(el);
+				var checkbox = $(el).attr('type') === 'checkbox';
+				if (radio) arrData += dataValue?dataValue + ' ':'';
+				else if (checkbox) arrData += dataValue?dataValue + ' ':'';
 
 			});
 			shortcode = '[breadcrumbs '+ arrData +']';
+			$('#my_shortcode').val(shortcode);
+		});
 
-			console.log(arrData);
-			console.log(shortcode);
+		//function copy text
+		function copyText(selector) {
+			selector.select();
+			selector.setSelectionRange(0, 99999); /*For mobile devices*/
+			document.execCommand("copy");
+		}
+
+		$('#my_shortcode').focus(function () {
+			var self = $(this);
+			var parent = self.parent();
+			copyText(this);
+
+			parent.css('position', 'relative');
+			parent.prepend('<div id="bc-message">Text copied!</div>');
 		});
 	});
 

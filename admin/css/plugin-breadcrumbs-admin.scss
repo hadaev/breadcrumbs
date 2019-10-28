@@ -1,0 +1,42 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+#my_shortcode{
+    width: 100%;
+    max-width: 580px;
+}
+#bc-message{
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    padding: 5px;
+    background-color: black;
+    border-radius: 3px;
+    color: white;
+    opacity: 0;
+    animation: fadeOut 3s 0s forwards;
+    &:after{
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 2px;
+        border: 5px solid transparent;
+        border-top: 5px solid black;
+    }
+}
+@keyframes fadeOut {
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    100%{opacity: 0;}
+}
+@-webkit-keyframes fadeOut {
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    100%{opacity: 0;}
+}
+@-o-keyframes fadeOut {
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    100%{opacity: 0;}
+}

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-23 14:13+0000\n"
+"POT-Creation-Date: 2019-10-28 13:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -52,4 +52,7 @@ msgid "Show title of current page"
 msgstr ""
 
 msgid "Current Page"
+msgstr ""
+
+msgid "Enter a delimiter character."
 msgstr ""

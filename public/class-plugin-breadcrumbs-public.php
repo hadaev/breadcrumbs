@@ -106,16 +106,28 @@ class Breadcrumbs_Public {
 			'position' => 'left',
 			'show_home_link' => 1,
 			'show_on_home' => 0,
-			'show_current' => 1
+			'show_current' => 1,
+//			'bg_sep' => false
 		), $atts, 'breadcrumbs' );
 
-		var_dump($atts);
-//		esc_html($atts['foo']);
 
 		$className = 'bc-display-flex bc-flex-justify-content-'.$atts['position'];
 		$show_home_link = $atts['show_home_link']; // 1 - показывать ссылку "Главная", 0 - не показывать
 		$show_on_home = $atts['show_on_home']; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
 		$show_current = $atts['show_current']; // 1 - показывать название текущей страницы, 0 - не показывать
+		$bg_sep= '';
+		$true_options = get_option('true_options');
+		$sep = $true_options['bc_sep']; // разделитель между "крошками"
+
+		var_dump($atts);
+		var_dump('sep',$sep);
+//		esc_html($atts['foo']);
+		if ($sep){
+			echo '<style>
+			  </style>';
+		}else{
+			$bg_sep = 'bc-bg-sep';
+		}
 
 			/* === ОПЦИИ === */
 			$text['home'] = __('Home'); // текст ссылки "Главная"
@@ -127,10 +139,10 @@ class Breadcrumbs_Public {
 			$text['page'] = __('Page').' %s'; // текст 'Страница N'
 			$text['cpage'] = __('Comments Page', 'breadcrumbs').' %s'; // текст 'Страница комментариев N'
 
-			$wrap_before = '<ul class="bc-list-item '. $className .'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
+			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
 			$wrap_after = '</ul><!-- .breadcrumbs -->'; // закрывающий тег обертки
 
-			$sep = '>'; // разделитель между "крошками"
+
 			$sep_before = '<span class="bc-sep">'; // тег перед разделителем
 			$sep_after = '</span>'; // тег после разделителя
 
