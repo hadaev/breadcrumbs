@@ -41,7 +41,6 @@
   padding-left: 28px;
   padding-right: 8px;
   position: relative;
-  border-right: 2px solid white;
   margin-bottom: 2px;
   height: 30px;
 }
@@ -65,7 +64,6 @@
   width: 0;
   height: 0;
   border-top: 15px solid transparent;
-  border-left: 16px solid white;
   border-bottom: 15px solid transparent;
 }
 .bc-bg-sep li:last-child {
@@ -75,8 +73,10 @@
   color: lightgrey;
 }
 .bc-bg-sep li a {
-  color: blue;
   line-height: 30px;
+}
+.bc-bg-sep li a:hover {
+  text-decoration: none;
 }
 .bc-bg-sep li span {
   padding: 0;

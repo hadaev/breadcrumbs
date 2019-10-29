@@ -120,14 +120,33 @@ class Breadcrumbs_Public {
 		$sep = $true_options['bc_sep']; // разделитель между "крошками"
 
 		var_dump($atts);
-		var_dump('sep',$sep);
+		var_dump($true_options['bc_color']);
 //		esc_html($atts['foo']);
 		if ($sep){
 			echo '<style>
-			  </style>';
-		}else{
+					.bc-sep{
+						color: '. $true_options['bc_color_sep'] .';
+					}
+				  </style>';
+		}else if($true_options['bc_check_sep']){
 			$bg_sep = 'bc-bg-sep';
+			echo '<style>
+					.bc-bg-sep li:before{
+						border-left: 16px solid '. $true_options['bc_color_sep'] .';
+					}
+					.bc-bg-sep li{
+						border-right: 2px solid '. $true_options['bc_color_sep'] .';
+						background-color: '. $true_options['bc_color_bg'] .';
+					}
+					.bc-bg-sep li:after{
+						border-left: 16px solid '. $true_options['bc_color_bg'] .';
+					}
+				  </style>';
 		}
+
+		if ($true_options['bc_color']) echo '<style>.bc-item a{color:'. $true_options['bc_color'] .';}</style>';
+		if ($true_options['bc_color_current']) echo '<style>.bc-current{color:'. $true_options['bc_color_current'] .';}</style>';
+
 
 			/* === ОПЦИИ === */
 			$text['home'] = __('Home'); // текст ссылки "Главная"

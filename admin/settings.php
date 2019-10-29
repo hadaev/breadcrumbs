@@ -16,14 +16,19 @@ switch ( $type ) {
 		echo "<input class='regular-text' type='text' id='$id' name='" . $option_name . "[$id]' value='$o[$id]' />";
 		echo ($desc != '') ? "<br /><span class='description'>$desc</span>" : "";
 		break;
+	case 'color':
+		$o[$id] = esc_attr( stripslashes($o[$id]) );
+		echo "<input class='bc-color' type='color' id='$id' name='" . $option_name . "[$id]' value='$o[$id]' />";
+		echo ($desc != '') ? "<span class='description'> $desc</span>" : "";
+		break;
 	case 'textarea':
 		$o[$id] = esc_attr( stripslashes($o[$id]) );
 		echo "<textarea class='code large-text' cols='50' rows='10' type='text' id='$id' name='" . $option_name . "[$id]'>$o[$id]</textarea>";
 		echo ($desc != '') ? "<br /><span class='description'>$desc</span>" : "";
 		break;
 	case 'checkbox':
-		$checked = ($o[$id] == 'on') ? " checked='checked'" :  '';
-		echo "<label><input type='checkbox' id='$id' name='" . $option_name . "[$id]' $checked /> ";
+		$checked = ($o[$id] == 'on' || $checked == 'on') ? " checked='checked'" :  '';
+		echo "<label id='".$id."_label'><input type='checkbox' id='$id' name='" . $option_name . "[$id]' $checked /> ";
 		echo ($desc != '') ? $desc : "";
 		echo "</label>";
 		break;

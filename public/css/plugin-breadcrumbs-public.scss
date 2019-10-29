@@ -2,9 +2,7 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
-$white: white;
 $light-grey: lightgrey;
-$blue: blue;
 .bc{
     &-display-flex{
         display: flex;
@@ -50,7 +48,6 @@ $blue: blue;
             padding-left: 28px;
             padding-right: 8px;
             position: relative;
-            border-right: 2px solid $white;
             margin-bottom: 2px;
             height: 30px;
             &:after{
@@ -73,7 +70,6 @@ $blue: blue;
                 width: 0;
                 height: 0;
                 border-top: 15px solid transparent;
-                border-left: 16px solid $white;
                 border-bottom: 15px solid transparent;
             }
 
@@ -84,8 +80,10 @@ $blue: blue;
                 }
             }
             a{
-                color: $blue;
                 line-height: 30px;
+                &:hover{
+                    text-decoration: none;
+                }
             }
             span{
                 padding: 0;

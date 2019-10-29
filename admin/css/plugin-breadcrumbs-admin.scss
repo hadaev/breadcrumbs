@@ -25,6 +25,18 @@
         border-top: 5px solid black;
     }
 }
+#bc_check_sep_label{
+    position: relative;
+    &:after{
+        content: "";
+        width: 150px;
+        height: 30px;
+        background: url("../image/sep.png") center/contain no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+}
 @keyframes fadeOut {
     0%{opacity: 0;}
     30%{opacity: 1;}

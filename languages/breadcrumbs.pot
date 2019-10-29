@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-28 13:39+0000\n"
+"POT-Creation-Date: 2019-10-29 14:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -54,5 +54,23 @@ msgstr ""
 msgid "Current Page"
 msgstr ""
 
-msgid "Enter a delimiter character."
+msgid "Enter your delimiter character or enable the default delimiter"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Choose link color"
+msgstr ""
+
+msgid "Choose the color of the current link"
+msgstr ""
+
+msgid "Choose the color of the separator"
+msgstr ""
+
+msgid "Default delimiter"
+msgstr ""
+
+msgid "Default Separator Background Color"
 msgstr ""

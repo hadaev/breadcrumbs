@@ -30,52 +30,47 @@
 	 */
 	$(function () {
 
-		var form = $('#bc-form');
+		var form = $($('#bc-form').find('.form-table').get(0));
 		var position = '';
 		var shortcode = '[breadcrumbs show_home_link=1 show_on_home=0 show_current=1]';
 		var show_home_link = '';
 		var show_on_home = '';
 		var show_current = '';
 
-		var arrForm = form.find('input:not(input[type="submit"], input[type="hidden"], input[readonly])');
-		var arrData = '';
-		$.each(arrForm, function (i,el) {
-			var value = $(el).val();
-			var self = $(el);
-			// var radio = $(el).prop('checked');
-			console.log(el);
-			// var checkbox = $(el).attr('type') === 'checkbox';
+		(function () {
+			var arrForm = form.find('input:not(input[type="submit"], input[type="hidden"], input[readonly])');
+			$.each(arrForm, function (i,el) {
+				var value = $(el).val();
+				var self = $(el);
 
-			position = 'position=' + value;
-			self.data('value', position);
-			var inputId = self.attr('id');
-			var isChecked = self.prop('checked');
-			console.log(isChecked);
-			if (inputId === 'show_home_link'){
-				isChecked = isChecked? 1:0;
-				show_home_link = 'show_home_link=' + isChecked;
-				self.data('value', show_home_link);
-			}
-			if (inputId === 'show_on_home'){
-				isChecked = isChecked? 1:0;
-				show_on_home = 'show_on_home=' + isChecked;
-				self.data('value', show_on_home);
-			}
-			if (inputId === 'show_current'){
-				isChecked = isChecked? 1:0;
-				show_current = 'show_current=' + isChecked;
-				self.data('value', show_current);
-			}
+				position = 'position=' + value;
+				self.data('value', position);
+				var inputId = self.attr('id');
+				var isChecked = self.prop('checked');
 
-		});
+				if (inputId === 'show_home_link'){
+					isChecked = isChecked? 1:0;
+					show_home_link = 'show_home_link=' + isChecked;
+					self.data('value', show_home_link);
+				}
+				if (inputId === 'show_on_home'){
+					isChecked = isChecked? 1:0;
+					show_on_home = 'show_on_home=' + isChecked;
+					self.data('value', show_on_home);
+				}
+				if (inputId === 'show_current'){
+					isChecked = isChecked? 1:0;
+					show_current = 'show_current=' + isChecked;
+					self.data('value', show_current);
+				}
 
-
+			});
+		})();
 
 		form.on('change', 'input:not(input[type="submit"])', function () {
 			var self = $(this);
 			var type = self.attr('type');
 			var value = self.val();
-
 
 			switch (type) {
 				case 'radio':
@@ -134,6 +129,18 @@
 			parent.css('position', 'relative');
 			parent.prepend('<div id="bc-message">Text copied!</div>');
 		});
+
+		//check separator default
+		var $bc_check_sep = $('#bc_check_sep');
+		var $bc_color_bg = $('#bc_color_bg');
+		if (!$bc_check_sep.prop('checked')) $bc_color_bg.attr('disabled', true).siblings('.description').css('text-decoration','line-through');
+
+		$bc_check_sep.change(function () {
+			$bc_check_sep.prop('checked')?
+				$bc_color_bg.attr('disabled', false).siblings('.description').css('text-decoration','none'):
+				$bc_color_bg.attr('disabled', true).siblings('.description').css('text-decoration','line-through');
+		});
+
 	});
 
 })( jQuery );

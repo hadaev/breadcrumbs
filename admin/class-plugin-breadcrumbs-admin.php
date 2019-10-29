@@ -195,15 +195,6 @@ class Breadcrumbs_Admin {
 		);
 		add_settings_field( 'show_current_field', __('Current Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-        $true_field_params = array(
-            'type'      => 'text', // тип
-            'id'        => 'bc_sep',
-            'desc'      => __('Enter a delimiter character.', 'breadcrumbs'),
-            'label_for' => 'bc_sep'
-        );
-        add_settings_field( 'bc_sep_field', __('Separator'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
-
-
 //		// Создадим textarea в первой секции
 //		$true_field_params = array(
 //			'type'      => 'textarea',
@@ -214,8 +205,59 @@ class Breadcrumbs_Admin {
 //
 //		// Добавляем вторую секцию настроек
 //
-//		add_settings_section( 'true_section_2', 'Другие поля ввода', '', 'breadcrumbs' );
-//
+		add_settings_section( 'true_section_2', __('Display', 'breadcrumbs'), '', 'breadcrumbs' );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_sep',
+			'desc'      => __('Enter your delimiter character or enable the default delimiter', 'breadcrumbs'),
+			'label_for' => 'bc_sep'
+		);
+		add_settings_field( 'bc_sep_field', __('Separator'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'checkbox',
+			'id'        => 'bc_check_sep',
+			'desc'      => __('Default delimiter', 'breadcrumbs'),
+            'checked'   => 'on'
+		);
+		add_settings_field( 'bc_check_sep_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'color', // тип
+			'id'        => 'bc_color_bg',
+			'desc'      => __('Default Separator Background Color', 'breadcrumbs'),
+			'label_for' => 'bc_color_bg'
+		);
+		add_settings_field( 'bc_color_bg_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'color', // тип
+			'id'        => 'bc_color_sep',
+			'desc'      => __('Choose the color of the separator', 'breadcrumbs'),
+			'label_for' => 'bc_color_sep'
+		);
+		add_settings_field( 'bc_color_sep_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+
+		$true_field_params = array(
+			'type'      => 'color', // тип
+			'id'        => 'bc_color',
+			'desc'      => __('Choose link color', 'breadcrumbs'),
+			'label_for' => 'bc_color'
+		);
+		add_settings_field( 'bc_color_field', __('Links'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'color', // тип
+			'id'        => 'bc_color_current',
+			'desc'      => __('Choose the color of the current link', 'breadcrumbs'),
+			'label_for' => 'bc_color_current'
+		);
+		add_settings_field( 'bc_color_current_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+
+
 //		// Создадим чекбокс
 //		$true_field_params = array(
 //			'type'      => 'checkbox',
