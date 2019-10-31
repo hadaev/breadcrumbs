@@ -133,13 +133,31 @@
 		//check separator default
 		var $bc_check_sep = $('#bc_check_sep');
 		var $bc_color_bg = $('#bc_color_bg');
+		var $bc_sep = $('#bc_sep');
 		if (!$bc_check_sep.prop('checked')) $bc_color_bg.attr('disabled', true).siblings('.description').css('text-decoration','line-through');
 
 		$bc_check_sep.change(function () {
-			$bc_check_sep.prop('checked')?
-				$bc_color_bg.attr('disabled', false).siblings('.description').css('text-decoration','none'):
+			if ($bc_check_sep.prop('checked')){
+				$bc_color_bg.attr('disabled', false).siblings('.description').css('text-decoration','none');
+				$bc_sep.attr('disabled', true);
+			}else{
 				$bc_color_bg.attr('disabled', true).siblings('.description').css('text-decoration','line-through');
+				$bc_sep.attr('disabled', false);
+			}
+
 		});
+
+		$bc_sep.change(function () {
+			checkValSep();
+		});
+
+		checkValSep();
+		function checkValSep() {
+			if ($bc_sep.val() !== ''){
+				$bc_check_sep.attr('checked', false);
+				$bc_color_bg.siblings('.description').css('text-decoration','line-through');
+			}
+		}
 
 	});
 

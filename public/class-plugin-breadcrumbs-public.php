@@ -97,7 +97,7 @@ class Breadcrumbs_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'js/plugin-name-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->Breadcrumbs, plugin_dir_url( __FILE__ ) . 'js/plugin-breadcrumbs-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -149,14 +149,16 @@ class Breadcrumbs_Public {
 
 
 			/* === ОПЦИИ === */
+			$before_text = "<span class='bc-text'>";
+			$after_text = "</span>";
 			$text['home'] = __('Home'); // текст ссылки "Главная"
 			$text['category'] = '%s'; // текст для страницы рубрики
-			$text['search'] = __('Search Results for', 'breadcrumbs'). "%s"; // текст для страницы с результатами поиска
-			$text['tag'] = __('Posts Tagged'). "%s"; // текст для страницы тега
-			$text['author'] = __('Author Articles', 'breadcrumbs'). "%s"; // текст для страницы автора
-			$text['404'] = __('Error') .'404'; // текст для страницы 404
-			$text['page'] = __('Page').' %s'; // текст 'Страница N'
-			$text['cpage'] = __('Comments Page', 'breadcrumbs').' %s'; // текст 'Страница комментариев N'
+			$text['search'] = $before_text . __('Search Results for', 'breadcrumbs'). $after_text . " <span class='bc-search'>%s</span>"; // текст для страницы с результатами поиска
+			$text['tag'] = $before_text . __('Posts Tagged', 'breadcrumbs'). $after_text . " <span class='bc-tag'>%s</span>"; // текст для страницы тега
+			$text['author'] = $before_text . __('Author Articles', 'breadcrumbs'). $after_text . " <span class='bc-author'>%s</span>"; // текст для страницы автора
+			$text['404'] = $before_text . __('Error') . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
+			$text['page'] = $before_text . __('Page'). $after_text ." <span class='bc-page'>%s</span>"; // текст 'Страница N'
+			$text['cpage'] = $before_text . __('Comments Page', 'breadcrumbs'). $after_text . " <span class='bc-cpage'>%s</span>"; // текст 'Страница комментариев N'
 
 			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
 			$wrap_after = '</ul><!-- .breadcrumbs -->'; // закрывающий тег обертки
@@ -165,7 +167,7 @@ class Breadcrumbs_Public {
 			$sep_before = '<span class="bc-sep">'; // тег перед разделителем
 			$sep_after = '</span>'; // тег после разделителя
 
-			$before = '<li class="bc-current"><span class="bc-no-active"></span>'; // тег перед текущей "крошкой"
+			$before = '<li class="bc-current"><span class="bc-no-active">'; // тег перед текущей "крошкой"
 			$after = '</span></li>'; // тег после текущей "крошки"
 			/* === КОНЕЦ ОПЦИЙ === */
 
@@ -183,11 +185,8 @@ class Breadcrumbs_Public {
 			$home_link = $link_before . '<a href="' . $home_url . '"' . $link_attr . ' class="home">' . $link_in_before . $text['home'] . $link_in_after . '</a>' . $link_after;
 
 			if (is_home() || is_front_page()) {
-
 				if ($show_on_home) echo $wrap_before . $home_link . $wrap_after;
-
 			} else {
-
 				echo $wrap_before;
 				if ($show_home_link) echo $home_link;
 
@@ -239,8 +238,9 @@ class Breadcrumbs_Public {
 						printf($link, $home_url . $slug['slug'] . '/', $post_type->labels->singular_name);
 						if ($show_current) echo $sep . $before . get_the_title() . $after;
 					} else {
-						$cat = get_the_category(); $cat = $cat[0];
-						$cats = get_category_parents( (int) $cat, TRUE, $sep);
+						$cat = get_the_category();
+						$cat = $cat[0];
+						$cats = get_category_parents( $cat->term_id, TRUE, $sep);
 						if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
@@ -263,16 +263,17 @@ class Breadcrumbs_Public {
 				} elseif ( is_attachment() ) {
 					if ($show_home_link) echo $sep;
 					$parent = get_post($parent_id);
-					$cat = get_the_category($parent->ID); $cat = $cat[0];
+					$cat = get_the_category($parent->ID);
+					$cat = $cat[0];
 					if ($cat) {
 						$cats = get_category_parents( (int) $cat, TRUE, $sep);
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 					}
 					printf($link, get_permalink($parent), $parent->post_title);
-					if ($show_current) echo $sep . $before . get_the_title() . $after;
-
-				} elseif ( is_page() && !$parent_id ) {
+					if ($show_current && $parent_id != 0) echo $sep . $before . get_the_title() . $after;
+					var_dump('attachment');
+				} elseif ( is_page() && (!$parent_id) ) {
 					if ($show_current) echo $sep . $before . get_the_title() . $after;
 
 				} elseif ( is_page() && $parent_id ) {

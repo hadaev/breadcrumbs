@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-29 14:03+0000\n"
+"POT-Creation-Date: 2019-10-30 13:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -73,4 +73,10 @@ msgid "Default delimiter"
 msgstr ""
 
 msgid "Default Separator Background Color"
+msgstr ""
+
+msgid "Posts Tagged"
+msgstr ""
+
+msgid "Search Results for"
 msgstr ""

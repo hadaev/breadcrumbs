@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-29 14:03+0000\n"
-"PO-Revision-Date: 2019-10-29 14:04+0000\n"
+"POT-Creation-Date: 2019-10-30 13:48+0000\n"
+"PO-Revision-Date: 2019-10-30 13:48+0000\n"
 "Last-Translator: wp-admin <example@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -76,3 +76,9 @@ msgstr "Разделитель по умолчанию"
 
 msgid "Default Separator Background Color"
 msgstr "Цвет фона разделителя по умолчанию"
+
+msgid "Posts Tagged"
+msgstr "Записи с тегами"
+
+msgid "Search Results for"
+msgstr "Результаты поиска для"
