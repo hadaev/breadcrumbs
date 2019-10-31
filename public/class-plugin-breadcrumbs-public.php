@@ -119,8 +119,6 @@ class Breadcrumbs_Public {
 		$true_options = get_option('true_options');
 		$sep = $true_options['bc_sep']; // разделитель между "крошками"
 
-		var_dump($atts);
-		var_dump($true_options['bc_color']);
 //		esc_html($atts['foo']);
 		if ($sep){
 			echo '<style>
@@ -156,7 +154,7 @@ class Breadcrumbs_Public {
 			$text['search'] = $before_text . __('Search Results for', 'breadcrumbs'). $after_text . " <span class='bc-search'>%s</span>"; // текст для страницы с результатами поиска
 			$text['tag'] = $before_text . __('Posts Tagged', 'breadcrumbs'). $after_text . " <span class='bc-tag'>%s</span>"; // текст для страницы тега
 			$text['author'] = $before_text . __('Author Articles', 'breadcrumbs'). $after_text . " <span class='bc-author'>%s</span>"; // текст для страницы автора
-			$text['404'] = $before_text . __('Error') . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
+			$text['404'] = $before_text . __('Error', 'breadcrumbs') . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
 			$text['page'] = $before_text . __('Page'). $after_text ." <span class='bc-page'>%s</span>"; // текст 'Страница N'
 			$text['cpage'] = $before_text . __('Comments Page', 'breadcrumbs'). $after_text . " <span class='bc-cpage'>%s</span>"; // текст 'Страница комментариев N'
 
@@ -270,9 +268,9 @@ class Breadcrumbs_Public {
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 					}
-					printf($link, get_permalink($parent), $parent->post_title);
-					if ($show_current && $parent_id != 0) echo $sep . $before . get_the_title() . $after;
-					var_dump('attachment');
+					if ($parent_id !== 0)printf($link, get_permalink($parent), $parent->post_title);
+					if ($show_current) echo $sep . $before . get_the_title() . $after;
+
 				} elseif ( is_page() && (!$parent_id) ) {
 					if ($show_current) echo $sep . $before . get_the_title() . $after;
 

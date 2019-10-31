@@ -113,6 +113,7 @@ class Breadcrumbs_Admin {
 	}
 	public function true_option_page(){
 
+
 		?><div class="wrap">
 		<h2><?php _e('Breadcrumbs', 'breadcrumbs') ?></h2>
 		<form method="post" enctype="multipart/form-data" action="options.php" id="bc-form">
@@ -256,6 +257,53 @@ class Breadcrumbs_Admin {
 		);
 		add_settings_field( 'bc_color_current_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_home',
+			'desc'      => __('Enter the link text, by default "Home"', 'breadcrumbs'),
+			'label_for' => 'bc_text_home'
+		);
+		add_settings_field( 'bc_text_home_field', __('Home link text', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_search',
+			'desc'      => __('Enter the text for the search results page, the default is "Search Results for"', 'breadcrumbs'),
+			'label_for' => 'bc_text_search'
+		);
+		add_settings_field( 'bc_text_search_field', __('Text for the search page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_author',
+			'desc'      => __('Enter the text for the author’s page, by default "Author articles"', 'breadcrumbs'),
+			'label_for' => 'bc_text_author'
+		);
+		add_settings_field( 'bc_text_author_field', __('Text for author page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_404',
+			'desc'      => __('Enter the text for page 404, the default is "Error"', 'breadcrumbs'),
+			'label_for' => 'bc_text_404'
+		);
+		add_settings_field( 'bc_text_404_field', __('Text for page 404', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_pagination',
+			'desc'      => __('Enter the text of the pagination page, the default is "Page"', 'breadcrumbs'),
+			'label_for' => 'bc_text_pagination'
+		);
+		add_settings_field( 'bc_text_pagination_field', __('Pagination Page Text', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_comment',
+			'desc'      => __('Enter text for the comment page, the default is "Comments page"', 'breadcrumbs'),
+			'label_for' => 'bc_text_comment'
+		);
+		add_settings_field( 'bc_text_comment_field', __('Text for the comment page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 
 //		// Создадим чекбокс

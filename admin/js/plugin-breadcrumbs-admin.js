@@ -156,6 +156,9 @@
 			if ($bc_sep.val() !== ''){
 				$bc_check_sep.attr('checked', false);
 				$bc_color_bg.siblings('.description').css('text-decoration','line-through');
+			}else{
+				$bc_check_sep.attr('checked', true);
+				$bc_color_bg.siblings('.description').css('text-decoration','none');
 			}
 		}
 

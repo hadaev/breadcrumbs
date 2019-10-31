@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-30 13:48+0000\n"
-"PO-Revision-Date: 2019-10-30 13:48+0000\n"
+"POT-Creation-Date: 2019-10-31 14:18+0000\n"
+"PO-Revision-Date: 2019-10-31 14:19+0000\n"
 "Last-Translator: wp-admin <example@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -82,3 +82,48 @@ msgstr "Записи с тегами"
 
 msgid "Search Results for"
 msgstr "Результаты поиска для"
+
+msgid "Home link text"
+msgstr "Текст ссылки \"Главная\""
+
+msgid "Enter the link text, by default \"Home\""
+msgstr "Введите текст ссылки, по умолчанию \"Главная\""
+
+msgid ""
+"Enter the text for the search results page, the default is \"Search Results "
+"for\""
+msgstr ""
+"Введите текст для страницы с результатами поиска, по умолчанию \"Результаты "
+"поиска для\""
+
+msgid "Text for the search page"
+msgstr "Текст для страницы поиска"
+
+msgid "Text for author page"
+msgstr "Текст для страницы автора"
+
+msgid "Enter the text for the author’s page, by default \"Author articles\""
+msgstr "Введите текст для страницы автора, по умолчанию \"Статьи автора\""
+
+msgid "Text for page 404"
+msgstr "Текст для страницы 404"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Enter the text for page 404, the default is \"Error\""
+msgstr "Введите текст для страницы 404, по умолчанию \"Ошибка\""
+
+msgid "Pagination Page Text"
+msgstr "Текст страницы пагинации"
+
+msgid "Enter the text of the pagination page, the default is \"Page\""
+msgstr "Введите текст страницы пагинации, по умолчанию \"Страница\""
+
+msgid "Text for the comment page"
+msgstr "Текст  для страницы комментариев"
+
+msgid "Enter text for the comment page, the default is \"Comments page\""
+msgstr ""
+"Введите текст  для страницы комментариев, по умолчанию \"Страница "
+"комментариев\""

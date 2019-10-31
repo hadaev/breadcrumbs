@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-30 13:48+0000\n"
+"POT-Creation-Date: 2019-10-31 14:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -79,4 +79,48 @@ msgid "Posts Tagged"
 msgstr ""
 
 msgid "Search Results for"
+msgstr ""
+
+msgid "Home link text"
+msgstr ""
+
+msgid "Enter the link text, by default \"Home\""
+msgstr ""
+
+msgid ""
+"Enter the text for the search results page, the default is \"Search Results "
+"for\""
+msgstr ""
+
+msgid "Text for the search page"
+msgstr ""
+
+msgid "Text for author page"
+msgstr ""
+
+msgid "Enter the text for the author’s page, by default \"Author articles\""
+msgstr ""
+
+msgid "Text for page 404"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Enter the text for page 404, the default is \"Error\""
+msgstr ""
+
+msgid "Pagination Page Text"
+msgstr ""
+
+msgid "Enter the text of the pagination page, the default is \"Page\""
+msgstr ""
+
+msgid "Text for the comment page"
+msgstr ""
+
+msgctxt ""
+"Введите текст  для страницы комментариев, по умолчанию \"Страница "
+"комментариев\""
+msgid "Enter text for the comment page, the default is \"Comments page\""
 msgstr ""
