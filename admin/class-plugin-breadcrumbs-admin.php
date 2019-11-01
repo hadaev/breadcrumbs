@@ -52,6 +52,7 @@ class Breadcrumbs_Admin {
 
 		$this->Breadcrumbs = $Breadcrumbs;
 		$this->version = $version;
+		add_action( 'admin_init', array($this, 'true_option_default') );
 		add_action( 'admin_init', array($this, 'true_option_settings') );
 		add_action( 'admin_menu', array($this, 'true_options') );
 
@@ -103,6 +104,13 @@ class Breadcrumbs_Admin {
 
 	}
 
+	public function true_option_default(){
+	    add_option('bc_position', 'left');
+	    add_option('show_home_link', 'on');
+	    add_option('show_current', 'on');
+	    add_option('bc_check_sep', 'on');
+    }
+
 	public function true_options() {
 		global $true_page;
 		add_options_page( __('Breadcrumbs', 'breadcrumbs'),
@@ -112,7 +120,6 @@ class Breadcrumbs_Admin {
 			array($this, 'true_option_page'));
 	}
 	public function true_option_page(){
-
 
 		?><div class="wrap">
 		<h2><?php _e('Breadcrumbs', 'breadcrumbs') ?></h2>
@@ -158,19 +165,19 @@ class Breadcrumbs_Admin {
 		// Создадим текстовое поле в первой секции
 		$true_field_params = array(
 			'type'      => 'shortcode', // тип
-			'id'        => 'my_shortcode',
-			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs'), // описание
-			'label_for' => 'my_shortcode' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
+			'id'        => 'bc_shortcode',
+			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs').' '.__('Example', 'breadcrumbs') . ': do_shortcode["breadcrumbs"]', // описание
+			'label_for' => 'bc_shortcode' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
 		);
-		add_settings_field( 'my_shortcode_field', __('Shortcode'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+		add_settings_field( 'bc_shortcode_field', __('Shortcode'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		// Создадим радио-кнопку
 		$true_field_params = array(
 			'type'      => 'radio',
-			'id'      => 'my_radio',
+			'id'      => 'bc_position',
 			'vals'		=> array( 'left' => __('Left'), 'center' => __('Center'), 'right' => __('Right'))
 		);
-		add_settings_field( 'my_radio', __('Position'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+		add_settings_field( 'bc_position', __('Position'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		// Создадим чекбокс
 		$true_field_params = array(
@@ -272,6 +279,14 @@ class Breadcrumbs_Admin {
 			'label_for' => 'bc_text_search'
 		);
 		add_settings_field( 'bc_text_search_field', __('Text for the search page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+
+		$true_field_params = array(
+			'type'      => 'text', // тип
+			'id'        => 'bc_text_tag',
+			'desc'      => __('Enter the text for the tag page, the default is "Posts Tagged"', 'breadcrumbs'),
+			'label_for' => 'bc_text_tag'
+		);
+		add_settings_field( 'bc_text_tag_field', __('Text for tag page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
 			'type'      => 'text', // тип

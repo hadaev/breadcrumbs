@@ -32,9 +32,8 @@
 
 		var form = $($('#bc-form').find('.form-table').get(0));
 		var position = '';
-		var shortcode = '[breadcrumbs show_home_link=1 show_on_home=0 show_current=1]';
+		var shortcode = '[breadcrumbs show_home_link=1 show_current=1]';
 		var show_home_link = '';
-		var show_on_home = '';
 		var show_current = '';
 
 		(function () {
@@ -42,21 +41,20 @@
 			$.each(arrForm, function (i,el) {
 				var value = $(el).val();
 				var self = $(el);
-
-				position = 'position=' + value;
-				self.data('value', position);
 				var inputId = self.attr('id');
 				var isChecked = self.prop('checked');
+
+				if (self.attr('type') === 'radio' && isChecked){
+					position = 'position=' + value;
+					self.data('value', position);
+				}
+
+
 
 				if (inputId === 'show_home_link'){
 					isChecked = isChecked? 1:0;
 					show_home_link = 'show_home_link=' + isChecked;
 					self.data('value', show_home_link);
-				}
-				if (inputId === 'show_on_home'){
-					isChecked = isChecked? 1:0;
-					show_on_home = 'show_on_home=' + isChecked;
-					self.data('value', show_on_home);
 				}
 				if (inputId === 'show_current'){
 					isChecked = isChecked? 1:0;
@@ -80,16 +78,10 @@
 				case 'checkbox':
 					var inputId = self.attr('id');
 					var isChecked = self.prop('checked');
-					console.log(isChecked);
 					if (inputId === 'show_home_link'){
 						isChecked = isChecked? 1:0;
 						show_home_link = 'show_home_link=' + isChecked;
 						self.data('value', show_home_link);
-					}
-					if (inputId === 'show_on_home'){
-						isChecked = isChecked? 1:0;
-						show_on_home = 'show_on_home=' + isChecked;
-						self.data('value', show_on_home);
 					}
 					if (inputId === 'show_current'){
 						isChecked = isChecked? 1:0;
@@ -103,15 +95,15 @@
 			var arrData = '';
 			$.each(arrForm, function (i,el) {
 				var dataValue = $(el).data('value');
-				var radio = $(el).prop('checked');
-				console.log(el);
+				var radioCheck = $(el).prop('checked');
+				var radio = $(el).attr('type') === 'radio';
 				var checkbox = $(el).attr('type') === 'checkbox';
-				if (radio) arrData += dataValue?dataValue + ' ':'';
+				if (radio && radioCheck) arrData += dataValue?dataValue + ' ':'';
 				else if (checkbox) arrData += dataValue?dataValue + ' ':'';
-
+				console.log(arrData);
 			});
 			shortcode = '[breadcrumbs '+ arrData +']';
-			$('#my_shortcode').val(shortcode);
+			$('#bc_shortcode').val(shortcode);
 		});
 
 		//function copy text
@@ -121,7 +113,7 @@
 			document.execCommand("copy");
 		}
 
-		$('#my_shortcode').focus(function () {
+		$('#bc_shortcode').focus(function () {
 			var self = $(this);
 			var parent = self.parent();
 			copyText(this);

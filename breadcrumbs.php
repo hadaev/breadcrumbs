@@ -86,9 +86,6 @@ run_Breadcrumbs();
 add_filter( 'plugin_action_links', 'settings_link' ,10, 4 );
 
 function settings_link( $actions, $plugin_file ){
-	var_dump(strpos( $plugin_file, basename(__FILE__) ));
-	var_dump(basename(__FILE__) );
-	var_dump($plugin_file );
 	if( false === strpos( $plugin_file, basename(__FILE__) ) )
 		return $actions;
 

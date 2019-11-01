@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-31 14:19+0000\n"
+"POT-Creation-Date: 2019-11-01 14:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -119,8 +119,14 @@ msgstr ""
 msgid "Text for the comment page"
 msgstr ""
 
-msgctxt ""
-"Введите текст  для страницы комментариев, по умолчанию \"Страница "
-"комментариев\""
 msgid "Enter text for the comment page, the default is \"Comments page\""
+msgstr ""
+
+msgid "Example"
+msgstr ""
+
+msgid "Text for tag page"
+msgstr ""
+
+msgid "Enter the text for the tag page, the default is \"Posts Tagged\""
 msgstr ""

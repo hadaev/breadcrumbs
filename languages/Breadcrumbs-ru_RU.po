@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-10-31 14:18+0000\n"
-"PO-Revision-Date: 2019-10-31 14:19+0000\n"
+"POT-Creation-Date: 2019-11-01 14:04+0000\n"
+"PO-Revision-Date: 2019-11-01 14:06+0000\n"
 "Last-Translator: wp-admin <example@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -125,5 +125,14 @@ msgstr "Текст  для страницы комментариев"
 
 msgid "Enter text for the comment page, the default is \"Comments page\""
 msgstr ""
-"Введите текст  для страницы комментариев, по умолчанию \"Страница "
+"Введите текст для страницы комментариев, по умолчанию \"Страница "
 "комментариев\""
+
+msgid "Example"
+msgstr "Пример"
+
+msgid "Text for tag page"
+msgstr "Текст для страницы тега"
+
+msgid "Enter the text for the tag page, the default is \"Posts Tagged\""
+msgstr "Введите текст для страницы тега, по умолчанию \"Записи тега\""

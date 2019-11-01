@@ -105,58 +105,61 @@ class Breadcrumbs_Public {
 		$atts = shortcode_atts( array(
 			'position' => 'left',
 			'show_home_link' => 1,
-			'show_on_home' => 0,
 			'show_current' => 1,
-//			'bg_sep' => false
 		), $atts, 'breadcrumbs' );
 
 
 		$className = 'bc-display-flex bc-flex-justify-content-'.$atts['position'];
 		$show_home_link = $atts['show_home_link']; // 1 - показывать ссылку "Главная", 0 - не показывать
-		$show_on_home = $atts['show_on_home']; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
 		$show_current = $atts['show_current']; // 1 - показывать название текущей страницы, 0 - не показывать
 		$bg_sep= '';
 		$true_options = get_option('true_options');
 		$sep = $true_options['bc_sep']; // разделитель между "крошками"
+		$show_on_home = $true_options['show_on_home']?1:0; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
 
 //		esc_html($atts['foo']);
 		if ($sep){
-			echo '<style>
-					.bc-sep{
-						color: '. $true_options['bc_color_sep'] .';
-					}
-				  </style>';
+			$bc_sep_selector ='.bc-sep{color: '. $true_options['bc_color_sep'] .';}';
 		}else if($true_options['bc_check_sep']){
 			$bg_sep = 'bc-bg-sep';
-			echo '<style>
-					.bc-bg-sep li:before{
-						border-left: 16px solid '. $true_options['bc_color_sep'] .';
-					}
-					.bc-bg-sep li{
-						border-right: 2px solid '. $true_options['bc_color_sep'] .';
-						background-color: '. $true_options['bc_color_bg'] .';
-					}
-					.bc-bg-sep li:after{
-						border-left: 16px solid '. $true_options['bc_color_bg'] .';
-					}
-				  </style>';
+			$bc_bg_sep_selector = '
+				.bc-bg-sep li:before{
+					border-left: 16px solid '. $true_options['bc_color_sep'] .';
+				}
+				.bc-bg-sep li{
+					border-right: 2px solid '. $true_options['bc_color_sep'] .';
+					background-color: '. $true_options['bc_color_bg'] .';
+				}
+				.bc-bg-sep li:after{
+					border-left: 16px solid '. $true_options['bc_color_bg'] .';
+				}
+				';
 		}
 
-		if ($true_options['bc_color']) echo '<style>.bc-item a{color:'. $true_options['bc_color'] .';}</style>';
-		if ($true_options['bc_color_current']) echo '<style>.bc-current{color:'. $true_options['bc_color_current'] .';}</style>';
+		if ($true_options['bc_color']) $bc_item_selector = '.bc-item a{color:'. $true_options['bc_color'] .';}';
+		if ($true_options['bc_color_current']) $bc_current_selector = '.bc-current{color:'. $true_options['bc_color_current'] .';}';
 
+		echo '<style>' . $bc_sep_selector .' ' . $bc_bg_sep_selector .' ' . $bc_item_selector .' ' . $bc_current_selector . '</style>';
+
+		$text_home = $true_options['bc_text_home']?$true_options['bc_text_home']:__('Home');
+		$text_search = $true_options['bc_text_search']?$true_options['bc_text_search']:__('Search Results for', 'breadcrumbs');
+		$text_tag = $true_options['bc_text_tag']?$true_options['bc_text_tag']:__('Posts Tagged', 'breadcrumbs');
+		$text_author = $true_options['bc_text_author']?$true_options['bc_text_author']:__('Author Articles', 'breadcrumbs');
+		$text_404 = $true_options['bc_text_404']?$true_options['bc_text_404']:__('Error', 'breadcrumbs');
+		$text_paged = $true_options['bc_text_pagination']?$true_options['bc_text_pagination']:__('Page');
+		$text_cpage = $true_options['bc_text_comment']?$true_options['bc_text_comment']:__('Comments Page', 'breadcrumbs');
 
 			/* === ОПЦИИ === */
 			$before_text = "<span class='bc-text'>";
 			$after_text = "</span>";
-			$text['home'] = __('Home'); // текст ссылки "Главная"
+			$text['home'] = $text_home; // текст ссылки "Главная"
 			$text['category'] = '%s'; // текст для страницы рубрики
-			$text['search'] = $before_text . __('Search Results for', 'breadcrumbs'). $after_text . " <span class='bc-search'>%s</span>"; // текст для страницы с результатами поиска
-			$text['tag'] = $before_text . __('Posts Tagged', 'breadcrumbs'). $after_text . " <span class='bc-tag'>%s</span>"; // текст для страницы тега
-			$text['author'] = $before_text . __('Author Articles', 'breadcrumbs'). $after_text . " <span class='bc-author'>%s</span>"; // текст для страницы автора
-			$text['404'] = $before_text . __('Error', 'breadcrumbs') . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
-			$text['page'] = $before_text . __('Page'). $after_text ." <span class='bc-page'>%s</span>"; // текст 'Страница N'
-			$text['cpage'] = $before_text . __('Comments Page', 'breadcrumbs'). $after_text . " <span class='bc-cpage'>%s</span>"; // текст 'Страница комментариев N'
+			$text['search'] = $before_text . $text_search . $after_text . " <span class='bc-search'>%s</span>"; // текст для страницы с результатами поиска
+			$text['tag'] = $before_text . $text_tag . $after_text . " <span class='bc-tag'>%s</span>"; // текст для страницы тега
+			$text['author'] = $before_text . $text_author . $after_text . " <span class='bc-author'>%s</span>"; // текст для страницы автора
+			$text['404'] = $before_text . $text_404 . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
+			$text['page'] = $before_text . $text_paged . $after_text ." <span class='bc-page'>%s</span>"; // текст 'Страница N'
+			$text['cpage'] = $before_text . $text_cpage . $after_text . " <span class='bc-cpage'>%s</span>"; // текст 'Страница комментариев N'
 
 			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
 			$wrap_after = '</ul><!-- .breadcrumbs -->'; // закрывающий тег обертки
