@@ -110,14 +110,13 @@ class Breadcrumbs_Public {
 
 
 		$className = 'bc-display-flex bc-flex-justify-content-'.$atts['position'];
-		$show_home_link = $atts['show_home_link']; // 1 - показывать ссылку "Главная", 0 - не показывать
-		$show_current = $atts['show_current']; // 1 - показывать название текущей страницы, 0 - не показывать
+		$show_home_link = $atts['show_home_link'];
+		$show_current = $atts['show_current'];
 		$bg_sep= '';
 		$true_options = get_option('true_options');
-		$sep = $true_options['bc_sep']; // разделитель между "крошками"
-		$show_on_home = $true_options['show_on_home']?1:0; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
+		$sep = $true_options['bc_sep'];
+		$show_on_home = $true_options['show_on_home']?1:0;
 
-//		esc_html($atts['foo']);
 		if ($sep){
 			$bc_sep_selector ='.bc-sep{color: '. $true_options['bc_color_sep'] .';}';
 		}else if($true_options['bc_check_sep']){
@@ -149,28 +148,28 @@ class Breadcrumbs_Public {
 		$text_paged = $true_options['bc_text_pagination']?$true_options['bc_text_pagination']:__('Page');
 		$text_cpage = $true_options['bc_text_comment']?$true_options['bc_text_comment']:__('Comments Page', 'breadcrumbs');
 
-			/* === ОПЦИИ === */
+			/* === settings === */
 			$before_text = "<span class='bc-text'>";
 			$after_text = "</span>";
-			$text['home'] = $text_home; // текст ссылки "Главная"
-			$text['category'] = '%s'; // текст для страницы рубрики
-			$text['search'] = $before_text . $text_search . $after_text . " <span class='bc-search'>%s</span>"; // текст для страницы с результатами поиска
-			$text['tag'] = $before_text . $text_tag . $after_text . " <span class='bc-tag'>%s</span>"; // текст для страницы тега
-			$text['author'] = $before_text . $text_author . $after_text . " <span class='bc-author'>%s</span>"; // текст для страницы автора
-			$text['404'] = $before_text . $text_404 . $after_text ." <span class='bc-404'>404</span>"; // текст для страницы 404
-			$text['page'] = $before_text . $text_paged . $after_text ." <span class='bc-page'>%s</span>"; // текст 'Страница N'
-			$text['cpage'] = $before_text . $text_cpage . $after_text . " <span class='bc-cpage'>%s</span>"; // текст 'Страница комментариев N'
+			$text['home'] = $text_home;
+			$text['category'] = '%s';
+			$text['search'] = $before_text . $text_search . $after_text . " <span class='bc-search'>%s</span>";
+			$text['tag'] = $before_text . $text_tag . $after_text . " <span class='bc-tag'>%s</span>";
+			$text['author'] = $before_text . $text_author . $after_text . " <span class='bc-author'>%s</span>";
+			$text['404'] = $before_text . $text_404 . $after_text ." <span class='bc-404'>404</span>";
+			$text['page'] = $before_text . $text_paged . $after_text ." <span class='bc-page'>%s</span>";
+			$text['cpage'] = $before_text . $text_cpage . $after_text . " <span class='bc-cpage'>%s</span>";
 
-			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">'; // открывающий тег обертки
-			$wrap_after = '</ul><!-- .breadcrumbs -->'; // закрывающий тег обертки
+			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">';
+			$wrap_after = '</ul><!-- .breadcrumbs -->';
 
 
-			$sep_before = '<span class="bc-sep">'; // тег перед разделителем
-			$sep_after = '</span>'; // тег после разделителя
+			$sep_before = '<span class="bc-sep">';
+			$sep_after = '</span>';
 
-			$before = '<li class="bc-current"><span class="bc-no-active">'; // тег перед текущей "крошкой"
-			$after = '</span></li>'; // тег после текущей "крошки"
-			/* === КОНЕЦ ОПЦИЙ === */
+			$before = '<li class="bc-current"><span class="bc-no-active">';
+			$after = '</span></li>';
+			/* === End Settings === */
 
 			global $post;
 			$home_url = home_url('/');

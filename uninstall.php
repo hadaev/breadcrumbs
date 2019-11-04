@@ -29,4 +29,23 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-//delete_option('my_option');
+//delete option
+delete_option('true_options');
+//delete_option('bc_shortcode');
+//delete_option('bc_position');
+//delete_option('show_home_link');
+//delete_option('show_on_home');
+//delete_option('show_current');
+//delete_option('bc_sep');
+//delete_option('bc_color_bg');
+//delete_option('bc_color_sep');
+//delete_option('bc_color');
+//delete_option('bc_color_current');
+//delete_option('bc_text_home');
+//delete_option('bc_text_search');
+//delete_option('bc_text_tag');
+//delete_option('bc_text_author');
+//delete_option('bc_text_404');
+//delete_option('bc_text_pagination');
+//delete_option('bc_text_comment');
+//delete_option('bc_check_sep');

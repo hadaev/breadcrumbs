@@ -6,16 +6,28 @@
     width: 100%;
     max-width: 580px;
 }
+#bc-form{
+    input{
+        &[type="color" i] {
+            width: 44px;
+            height: 23px;
+        }
+        &.bc-color-input{
+            width: 70px;
+            height: 23px;
+            vertical-align: bottom;
+        }
+    }
+}
 #bc-message{
     position: absolute;
     top: -15px;
-    right: 10px;
+    left: 10px;
     padding: 5px;
     background-color: black;
     border-radius: 3px;
     color: white;
     opacity: 0;
-    animation: fadeOut 3s 0s forwards;
     &:after{
         content: "";
         position: absolute;

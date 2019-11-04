@@ -105,16 +105,22 @@ class Breadcrumbs_Admin {
 	}
 
 	public function true_option_default(){
-	    add_option('bc_position', 'left');
-	    add_option('show_home_link', 'on');
-	    add_option('show_current', 'on');
-	    add_option('bc_check_sep', 'on');
+		$add_option = [];
+	    $add_option['bc_position'] = 'left';
+	    $add_option['show_home_link'] = 'on';
+	    $add_option['show_current'] = 'on';
+	    $add_option['bc_check_sep'] = 'on';
+	    $add_option['bc_color_sep'] = '#ffffff';
+	    $add_option['bc_color_bg'] = '#eeeeee';
+	    $add_option['bc_color_current'] = '#757575';
+	    $add_option['bc_color'] = '#007bff';
+		add_option('true_options', $add_option);
     }
 
 	public function true_options() {
 		global $true_page;
-		add_options_page( __('Breadcrumbs', 'breadcrumbs'),
-			__('Breadcrumbs', 'breadcrumbs'),
+		add_options_page( __('Breadcrumbs', 'Breadcrumbs'),
+			__('Breadcrumbs', 'Breadcrumbs'),
 			'manage_options',
 			'breadcrumbs',
 			array($this, 'true_option_page'));
@@ -122,7 +128,7 @@ class Breadcrumbs_Admin {
 	public function true_option_page(){
 
 		?><div class="wrap">
-		<h2><?php _e('Breadcrumbs', 'breadcrumbs') ?></h2>
+		<h2><?php _e('Breadcrumbs', 'Breadcrumbs') ?></h2>
 		<form method="post" enctype="multipart/form-data" action="options.php" id="bc-form">
 			<?php
 			settings_fields('true_options'); // меняем под себя только здесь (название настроек)
@@ -138,40 +144,27 @@ class Breadcrumbs_Admin {
 		foreach($input as $k => $v) {
 			$valid_input[$k] = trim($v);
 
-			/* Вы можете включить в эту функцию различные проверки значений, например
-			if(! задаем условие ) { // если не выполняется
-				$valid_input[$k] = ''; // тогда присваиваем значению пустую строку
+			/*
+			if(! valid ) {
+				$valid_input[$k] = '';
 			}
 			*/
 		}
 		return $valid_input;
 	}
 	function true_option_settings() {
-		// Присваиваем функцию валидации ( true_validate_settings() ). Вы найдете её ниже
 		register_setting( 'true_options', 'true_options', array($this, 'true_validate_settings') ); // true_options
 
-		// Добавляем секцию
 		add_settings_section( 'true_section_1', __('Settings'), '', 'breadcrumbs' );
 
-		// Создадим текстовое поле в первой секции
-//		$true_field_params = array(
-//			'type'      => 'text', // тип
-//			'id'        => 'my_text',
-//			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs'), // описание
-//			'label_for' => 'my_text' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
-//		);
-//		add_settings_field( 'my_text_field', __('Text'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
-
-		// Создадим текстовое поле в первой секции
 		$true_field_params = array(
-			'type'      => 'shortcode', // тип
+			'type'      => 'shortcode',
 			'id'        => 'bc_shortcode',
-			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'breadcrumbs').' '.__('Example', 'breadcrumbs') . ': do_shortcode["breadcrumbs"]', // описание
-			'label_for' => 'bc_shortcode' // позволяет сделать название настройки лейблом (если не понимаете, что это, можете не использовать), по идее должно быть одинаковым с параметром id
+			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'Breadcrumbs').' '.__('Example', 'breadcrumbs') . ': do_shortcode["breadcrumbs"]',
+			'label_for' => 'bc_shortcode'
 		);
 		add_settings_field( 'bc_shortcode_field', __('Shortcode'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-		// Создадим радио-кнопку
 		$true_field_params = array(
 			'type'      => 'radio',
 			'id'      => 'bc_position',
@@ -179,46 +172,34 @@ class Breadcrumbs_Admin {
 		);
 		add_settings_field( 'bc_position', __('Position'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-		// Создадим чекбокс
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_home_link',
-			'desc'      => __('Show home link', 'breadcrumbs')
+			'desc'      => __('Show home link', 'Breadcrumbs')
 		);
-		add_settings_field( 'show_home_link_field', __('Home Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+		add_settings_field( 'show_home_link_field', __('Home Page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		// Создадим чекбокс
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_on_home',
-			'desc'      => __('Show breadcrumbs on the home page', 'breadcrumbs')
+			'desc'      => __('Show breadcrumbs on the home page', 'Breadcrumbs')
 		);
 		add_settings_field( 'show_on_home_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-		// Создадим чекбокс
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_current',
-			'desc'      => __('Show title of current page', 'breadcrumbs')
+			'desc'      => __('Show title of current page', 'Breadcrumbs')
 		);
-		add_settings_field( 'show_current_field', __('Current Page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+		add_settings_field( 'show_current_field', __('Current Page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-//		// Создадим textarea в первой секции
-//		$true_field_params = array(
-//			'type'      => 'textarea',
-//			'id'        => 'my_textarea',
-//			'desc'      => 'Пример большого текстового поля.'
-//		);
-//		add_settings_field( 'my_textarea_field', 'Большое текстовое поле', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
-//
-//		// Добавляем вторую секцию настроек
-//
-		add_settings_section( 'true_section_2', __('Display', 'breadcrumbs'), '', 'breadcrumbs' );
+		add_settings_section( 'true_section_2', __('Display', 'Breadcrumbs'), '', 'breadcrumbs' );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_sep',
-			'desc'      => __('Enter your delimiter character or enable the default delimiter', 'breadcrumbs'),
+			'desc'      => __('Enter your delimiter character or enable the default delimiter', 'Breadcrumbs'),
 			'label_for' => 'bc_sep'
 		);
 		add_settings_field( 'bc_sep_field', __('Separator'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
@@ -226,118 +207,99 @@ class Breadcrumbs_Admin {
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'bc_check_sep',
-			'desc'      => __('Default delimiter', 'breadcrumbs'),
+			'desc'      => __('Default delimiter', 'Breadcrumbs'),
             'checked'   => 'on'
 		);
 		add_settings_field( 'bc_check_sep_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'color', // тип
+			'type'      => 'color',
 			'id'        => 'bc_color_bg',
-			'desc'      => __('Default Separator Background Color', 'breadcrumbs'),
+			'desc'      => __('Default Separator Background Color', 'Breadcrumbs'),
 			'label_for' => 'bc_color_bg'
 		);
 		add_settings_field( 'bc_color_bg_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'color', // тип
+			'type'      => 'color',
 			'id'        => 'bc_color_sep',
-			'desc'      => __('Choose the color of the separator', 'breadcrumbs'),
+			'desc'      => __('Choose the color of the separator', 'Breadcrumbs'),
 			'label_for' => 'bc_color_sep'
 		);
 		add_settings_field( 'bc_color_sep_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 
 		$true_field_params = array(
-			'type'      => 'color', // тип
+			'type'      => 'color',
 			'id'        => 'bc_color',
-			'desc'      => __('Choose link color', 'breadcrumbs'),
+			'desc'      => __('Choose link color', 'Breadcrumbs'),
 			'label_for' => 'bc_color'
 		);
 		add_settings_field( 'bc_color_field', __('Links'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'color', // тип
+			'type'      => 'color',
 			'id'        => 'bc_color_current',
-			'desc'      => __('Choose the color of the current link', 'breadcrumbs'),
+			'desc'      => __('Choose the color of the current link', 'Breadcrumbs'),
 			'label_for' => 'bc_color_current'
 		);
 		add_settings_field( 'bc_color_current_field', '', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_home',
-			'desc'      => __('Enter the link text, by default "Home"', 'breadcrumbs'),
+			'desc'      => __('Enter the link text, by default "Home"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_home'
 		);
-		add_settings_field( 'bc_text_home_field', __('Home link text', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_home_field', __('Home link text', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_search',
-			'desc'      => __('Enter the text for the search results page, the default is "Search Results for"', 'breadcrumbs'),
+			'desc'      => __('Enter the text for the search results page, the default is "Search Results for"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_search'
 		);
-		add_settings_field( 'bc_text_search_field', __('Text for the search page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_search_field', __('Text for the search page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_tag',
-			'desc'      => __('Enter the text for the tag page, the default is "Posts Tagged"', 'breadcrumbs'),
+			'desc'      => __('Enter the text for the tag page, the default is "Posts Tagged"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_tag'
 		);
-		add_settings_field( 'bc_text_tag_field', __('Text for tag page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_tag_field', __('Text for tag page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_author',
-			'desc'      => __('Enter the text for the author’s page, by default "Author articles"', 'breadcrumbs'),
+			'desc'      => __('Enter the text for the author’s page, by default "Author articles"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_author'
 		);
-		add_settings_field( 'bc_text_author_field', __('Text for author page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_author_field', __('Text for author page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_404',
-			'desc'      => __('Enter the text for page 404, the default is "Error"', 'breadcrumbs'),
+			'desc'      => __('Enter the text for page 404, the default is "Error"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_404'
 		);
-		add_settings_field( 'bc_text_404_field', __('Text for page 404', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_404_field', __('Text for page 404', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_pagination',
-			'desc'      => __('Enter the text of the pagination page, the default is "Page"', 'breadcrumbs'),
+			'desc'      => __('Enter the text of the pagination page, the default is "Page"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_pagination'
 		);
-		add_settings_field( 'bc_text_pagination_field', __('Pagination Page Text', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
+		add_settings_field( 'bc_text_pagination_field', __('Pagination Page Text', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 		$true_field_params = array(
-			'type'      => 'text', // тип
+			'type'      => 'text',
 			'id'        => 'bc_text_comment',
-			'desc'      => __('Enter text for the comment page, the default is "Comments page"', 'breadcrumbs'),
+			'desc'      => __('Enter text for the comment page, the default is "Comments page"', 'Breadcrumbs'),
 			'label_for' => 'bc_text_comment'
 		);
-		add_settings_field( 'bc_text_comment_field', __('Text for the comment page', 'breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
-
-
-//		// Создадим чекбокс
-//		$true_field_params = array(
-//			'type'      => 'checkbox',
-//			'id'        => 'my_checkbox',
-//			'desc'      => 'Пример чекбокса.'
-//		);
-//		add_settings_field( 'my_checkbox_field', 'Чекбокс', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
-//
-//		// Создадим выпадающий список
-//		$true_field_params = array(
-//			'type'      => 'select',
-//			'id'        => 'my_select',
-//			'desc'      => 'Пример выпадающего списка.',
-//			'vals'		=> array( 'val1' => 'Значение 1', 'val2' => 'Значение 2', 'val3' => 'Значение 3')
-//		);
-//		add_settings_field( 'my_select_field', 'Выпадающий список', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
-
+		add_settings_field( 'bc_text_comment_field', __('Text for the comment page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_2', $true_field_params );
 
 	}
 	public function true_option_display_settings($args) {

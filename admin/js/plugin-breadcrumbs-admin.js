@@ -30,6 +30,7 @@
 	 */
 	$(function () {
 
+		var $bcShorkode = $('#bc_shortcode');
 		var form = $($('#bc-form').find('.form-table').get(0));
 		var position = '';
 		var shortcode = '[breadcrumbs show_home_link=1 show_current=1]';
@@ -48,8 +49,6 @@
 					position = 'position=' + value;
 					self.data('value', position);
 				}
-
-
 
 				if (inputId === 'show_home_link'){
 					isChecked = isChecked? 1:0;
@@ -103,7 +102,7 @@
 				console.log(arrData);
 			});
 			shortcode = '[breadcrumbs '+ arrData +']';
-			$('#bc_shortcode').val(shortcode);
+			$bcShorkode.val(shortcode);
 		});
 
 		//function copy text
@@ -113,13 +112,15 @@
 			document.execCommand("copy");
 		}
 
-		$('#bc_shortcode').focus(function () {
+		$bcShorkode.focus(function () {
 			var self = $(this);
 			var parent = self.parent();
 			copyText(this);
-
 			parent.css('position', 'relative');
-			parent.prepend('<div id="bc-message">Text copied!</div>');
+			$('#bc-message').css('animation', 'fadeOut 3s 0s forwards')
+		});
+		$bcShorkode.blur(function () {
+			$('#bc-message').removeAttr('style');
 		});
 
 		//check separator default
@@ -154,6 +155,18 @@
 			}
 		}
 
+		var userAgent, ieReg, ie;
+		userAgent = window.navigator.userAgent;
+		ieReg = /msie|Trident.*rv[ :]*11\./gi;
+		ie = ieReg.test(userAgent);
+		if (!ie) {
+			$('#bc-form input[type="color"]').on('change', function () {
+				$(this).parent().find('.bc-color-input').val(this.value);
+			});
+			$('#bc-form .bc-color-input').on('input', function () {
+				$(this).parent().find('input[type="color"]').val(this.value);
+			});
+		}
 	});
 
 })( jQuery );
