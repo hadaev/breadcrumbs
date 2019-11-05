@@ -131,7 +131,7 @@ class Breadcrumbs_Admin {
 		<h2><?php _e('Breadcrumbs', 'Breadcrumbs') ?></h2>
 		<form method="post" enctype="multipart/form-data" action="options.php" id="bc-form">
 			<?php
-			settings_fields('true_options'); // меняем под себя только здесь (название настроек)
+			settings_fields('true_options');
 			do_settings_sections('breadcrumbs');
 			?>
 			<p class="submit">
@@ -160,7 +160,7 @@ class Breadcrumbs_Admin {
 		$true_field_params = array(
 			'type'      => 'shortcode',
 			'id'        => 'bc_shortcode',
-			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'Breadcrumbs').' '.__('Example', 'breadcrumbs') . ': do_shortcode["breadcrumbs"]',
+			'desc'      => __('This code must be inserted on the page where the breadcrumbs should be.', 'Breadcrumbs').' '.__('Example', 'Breadcrumbs') . ': do_shortcode("[breadcrumbs]")',
 			'label_for' => 'bc_shortcode'
 		);
 		add_settings_field( 'bc_shortcode_field', __('Shortcode'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
@@ -179,7 +179,6 @@ class Breadcrumbs_Admin {
 		);
 		add_settings_field( 'show_home_link_field', __('Home Page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
-		// Создадим чекбокс
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_on_home',
