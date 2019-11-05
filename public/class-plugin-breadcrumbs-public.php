@@ -122,14 +122,17 @@ class Breadcrumbs_Public {
 		}else if($true_options['bc_check_sep']){
 			$bg_sep = 'bc-bg-sep';
 			$bc_bg_sep_selector = '
-				.bc-bg-sep li:before{
+				.bc-bg-sep .bc-item:before,
+				.bc-bg-sep .bc-current:before{
 					border-left: 16px solid '. $true_options['bc_color_sep'] .';
 				}
-				.bc-bg-sep li{
+				.bc-bg-sep .bc-item, 
+				.bc-bg-sep .bc-current{
 					border-right: 2px solid '. $true_options['bc_color_sep'] .';
 					background-color: '. $true_options['bc_color_bg'] .';
 				}
-				.bc-bg-sep li:after{
+				.bc-bg-sep .bc-item:after, 
+				.bc-bg-sep .bc-current:after{
 					border-left: 16px solid '. $true_options['bc_color_bg'] .';
 				}
 				';
@@ -141,12 +144,12 @@ class Breadcrumbs_Public {
 		echo '<style>' . $bc_sep_selector .' ' . $bc_bg_sep_selector .' ' . $bc_item_selector .' ' . $bc_current_selector . '</style>';
 
 		$text_home = $true_options['bc_text_home']?$true_options['bc_text_home']:__('Home');
-		$text_search = $true_options['bc_text_search']?$true_options['bc_text_search']:__('Search Results for', 'breadcrumbs');
-		$text_tag = $true_options['bc_text_tag']?$true_options['bc_text_tag']:__('Posts Tagged', 'breadcrumbs');
-		$text_author = $true_options['bc_text_author']?$true_options['bc_text_author']:__('Author Articles', 'breadcrumbs');
-		$text_404 = $true_options['bc_text_404']?$true_options['bc_text_404']:__('Error', 'breadcrumbs');
+		$text_search = $true_options['bc_text_search']?$true_options['bc_text_search']:__('Search Results for', 'Breadcrumbs');
+		$text_tag = $true_options['bc_text_tag']?$true_options['bc_text_tag']:__('Posts Tagged', 'Breadcrumbs');
+		$text_author = $true_options['bc_text_author']?$true_options['bc_text_author']:__('Author Articles', 'Breadcrumbs');
+		$text_404 = $true_options['bc_text_404']?$true_options['bc_text_404']:__('Error', 'Breadcrumbs');
 		$text_paged = $true_options['bc_text_pagination']?$true_options['bc_text_pagination']:__('Page');
-		$text_cpage = $true_options['bc_text_comment']?$true_options['bc_text_comment']:__('Comments Page', 'breadcrumbs');
+		$text_cpage = $true_options['bc_text_comment']?$true_options['bc_text_comment']:__('Comments Page', 'Breadcrumbs');
 
 			/* === settings === */
 			$before_text = "<span class='bc-text'>";
@@ -160,12 +163,12 @@ class Breadcrumbs_Public {
 			$text['page'] = $before_text . $text_paged . $after_text ." <span class='bc-page'>%s</span>";
 			$text['cpage'] = $before_text . $text_cpage . $after_text . " <span class='bc-cpage'>%s</span>";
 
-			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'" itemscope itemtype="http://schema.org/BreadcrumbList">';
+			$wrap_before = '<ul class="bc bc-list-item '. $className .' '. $bg_sep.'">';
 			$wrap_after = '</ul><!-- .breadcrumbs -->';
 
 
-			$sep_before = '<span class="bc-sep">';
-			$sep_after = '</span>';
+			$sep_before = '<li class="bc-sep">';
+			$sep_after = '</li>';
 
 			$before = '<li class="bc-current"><span class="bc-no-active">';
 			$after = '</span></li>';
@@ -173,16 +176,15 @@ class Breadcrumbs_Public {
 
 			global $post;
 			$home_url = home_url('/');
-			$link_before = '<li class="bc-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';
+			$link_before = '<li class="bc-item">';
 			$link_after = '</li>';
-			$link_attr = ' itemprop="item"';
-			$link_in_before = '<span itemprop="name">';
+			$link_in_before = '<span>';
 			$link_in_after = '</span>';
-			$link = $link_before . '<a href="%1$s"' . $link_attr . '>' . $link_in_before . '%2$s' . $link_in_after . '</a>' . $link_after;
+			$link = $link_before . '<a href="%1$s">' . $link_in_before . '%2$s' . $link_in_after . '</a>' . $link_after;
 			$frontpage_id = get_option('page_on_front');
 			$parent_id = ($post) ? $post->post_parent : '';
 			$sep = ' ' . $sep_before . $sep . $sep_after . ' ';
-			$home_link = $link_before . '<a href="' . $home_url . '"' . $link_attr . ' class="home">' . $link_in_before . $text['home'] . $link_in_after . '</a>' . $link_after;
+			$home_link = $link_before . '<a href="' . $home_url . '" class="bc-home">' . $link_in_before . $text['home'] . $link_in_after . '</a>' . $link_after;
 
 			if (is_home() || is_front_page()) {
 				if ($show_on_home) echo $wrap_before . $home_link . $wrap_after;
@@ -195,7 +197,7 @@ class Breadcrumbs_Public {
 					if ($cat->parent != 0) {
 						$cats = get_category_parents($cat->parent, TRUE, $sep);
 						$cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						if ($show_home_link) echo $sep;
 						echo $cats;
 					}
@@ -242,7 +244,7 @@ class Breadcrumbs_Public {
 						$cat = $cat[0];
 						$cats = get_category_parents( $cat->term_id, TRUE, $sep);
 						if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 						if ( get_query_var('cpage') ) {
 							echo $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
@@ -267,7 +269,7 @@ class Breadcrumbs_Public {
 					$cat = $cat[0];
 					if ($cat) {
 						$cats = get_category_parents( (int) $cat, TRUE, $sep);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						echo $cats;
 					}
 					if ($parent_id !== 0)printf($link, get_permalink($parent), $parent->post_title);

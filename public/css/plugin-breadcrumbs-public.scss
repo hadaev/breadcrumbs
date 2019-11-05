@@ -25,7 +25,7 @@ $light-grey: lightgrey;
             font-size: 14px;
             line-height: 28px;
         }
-        span{
+        li{
             &.bc-sep{
                 padding: 0;
                 display: none;
@@ -44,7 +44,8 @@ $light-grey: lightgrey;
                 }
             }
         }
-        li{
+        .bc-item,
+        .bc-current{
             padding-left: 28px;
             padding-right: 8px;
             position: relative;
