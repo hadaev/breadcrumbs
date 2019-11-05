@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-11-05 08:56+0000\n"
-"PO-Revision-Date: 2019-11-05 08:57+0000\n"
+"POT-Creation-Date: 2019-11-05 14:10+0000\n"
+"PO-Revision-Date: 2019-11-05 14:11+0000\n"
 "Last-Translator: wp-admin <example@gmail.com>\n"
 "Language-Team: Русский\n"
 "Language: ru_RU\n"
@@ -142,3 +142,6 @@ msgstr "Текст скопирован!"
 
 msgid "Custom bread crumbs for your site."
 msgstr "Кастомные хлебные крошки для вашего сайта."
+
+msgid "Options with * are transmitted using the shortcode"
+msgstr "Опции со *, передаются с помощью шорткода"

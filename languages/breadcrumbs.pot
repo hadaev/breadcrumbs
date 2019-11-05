@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumbs\n"
-"POT-Creation-Date: 2019-11-05 08:56+0000\n"
+"POT-Creation-Date: 2019-11-05 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
 "Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
@@ -135,4 +135,7 @@ msgid "Text copied!"
 msgstr ""
 
 msgid "Custom bread crumbs for your site."
+msgstr ""
+
+msgid "Options with * are transmitted using the shortcode"
 msgstr ""

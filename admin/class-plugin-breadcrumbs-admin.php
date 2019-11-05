@@ -134,6 +134,7 @@ class Breadcrumbs_Admin {
 			settings_fields('true_options');
 			do_settings_sections('breadcrumbs');
 			?>
+            <span class="description"><?php _e('Options with * are transmitted using the shortcode', 'Breadcrumbs')?></span>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 			</p>
@@ -170,12 +171,12 @@ class Breadcrumbs_Admin {
 			'id'      => 'bc_position',
 			'vals'		=> array( 'left' => __('Left'), 'center' => __('Center'), 'right' => __('Right'))
 		);
-		add_settings_field( 'bc_position', __('Position'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
+		add_settings_field( 'bc_position', __('Position').'*', array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_home_link',
-			'desc'      => __('Show home link', 'Breadcrumbs')
+			'desc'      => __('Show home link', 'Breadcrumbs').'*'
 		);
 		add_settings_field( 'show_home_link_field', __('Home Page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
@@ -189,7 +190,7 @@ class Breadcrumbs_Admin {
 		$true_field_params = array(
 			'type'      => 'checkbox',
 			'id'        => 'show_current',
-			'desc'      => __('Show title of current page', 'Breadcrumbs')
+			'desc'      => __('Show title of current page', 'Breadcrumbs').'*'
 		);
 		add_settings_field( 'show_current_field', __('Current Page', 'Breadcrumbs'), array($this, 'true_option_display_settings'), 'breadcrumbs', 'true_section_1', $true_field_params );
 
