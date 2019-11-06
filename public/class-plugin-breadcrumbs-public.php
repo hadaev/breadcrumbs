@@ -108,6 +108,7 @@ class Breadcrumbs_Public {
 			'show_current' => 1,
 		), $atts, 'breadcrumbs' );
 
+		$breadcrumbs_code = '';
 
 		$className = 'bc-display-flex bc-flex-justify-content-'.$atts['position'];
 		$show_home_link = $atts['show_home_link'];
@@ -141,7 +142,7 @@ class Breadcrumbs_Public {
 		if ($true_options['bc_color']) $bc_item_selector = '.bc-item a{color:'. $true_options['bc_color'] .';}';
 		if ($true_options['bc_color_current']) $bc_current_selector = '.bc-current{color:'. $true_options['bc_color_current'] .';}';
 
-		echo '<style>' . $bc_sep_selector .' ' . $bc_bg_sep_selector .' ' . $bc_item_selector .' ' . $bc_current_selector . '</style>';
+		$breadcrumbs_code .= '<style>' . $bc_sep_selector .' ' . $bc_bg_sep_selector .' ' . $bc_item_selector .' ' . $bc_current_selector . '</style>';
 
 		$text_home = $true_options['bc_text_home']?$true_options['bc_text_home']:__('Home');
 		$text_search = $true_options['bc_text_search']?$true_options['bc_text_search']:__('Search Results for', 'Breadcrumbs');
@@ -187,10 +188,10 @@ class Breadcrumbs_Public {
 			$home_link = $link_before . '<a href="' . $home_url . '" class="bc-home">' . $link_in_before . $text['home'] . $link_in_after . '</a>' . $link_after;
 
 			if (is_home() || is_front_page()) {
-				if ($show_on_home) echo $wrap_before . $home_link . $wrap_after;
+				if ($show_on_home) $breadcrumbs_code .= $wrap_before . $home_link . $wrap_after;
 			} else {
-				echo $wrap_before;
-				if ($show_home_link) echo $home_link;
+				$breadcrumbs_code .= $wrap_before;
+				if ($show_home_link) $breadcrumbs_code .= $home_link;
 
 				if ( is_category() ) {
 					$cat = get_category(get_query_var('cat'), false);
@@ -198,47 +199,47 @@ class Breadcrumbs_Public {
 						$cats = get_category_parents($cat->parent, TRUE, $sep);
 						$cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-						if ($show_home_link) echo $sep;
-						echo $cats;
+						if ($show_home_link) $breadcrumbs_code .= $sep;
+						$breadcrumbs_code .= $cats;
 					}
 					if ( get_query_var('paged') ) {
 						$cat = $cat->cat_ID;
-						echo $sep . sprintf($link, get_category_link($cat), get_cat_name($cat)) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
+						$breadcrumbs_code .= $sep . sprintf($link, get_category_link($cat), get_cat_name($cat)) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
-						if ($show_current) echo $sep . $before . sprintf($text['category'], single_cat_title('', false)) . $after;
+						if ($show_current) $breadcrumbs_code .= $sep . $before . sprintf($text['category'], single_cat_title('', false)) . $after;
 					}
 
 				} elseif ( is_search() ) {
 					if (have_posts()) {
-						if ($show_home_link && $show_current) echo $sep;
-						if ($show_current) echo $before . sprintf($text['search'], get_search_query()) . $after;
+						if ($show_home_link && $show_current) $breadcrumbs_code .= $sep;
+						if ($show_current) $breadcrumbs_code .= $before . sprintf($text['search'], get_search_query()) . $after;
 					} else {
-						if ($show_home_link) echo $sep;
-						echo $before . sprintf($text['search'], get_search_query()) . $after;
+						if ($show_home_link) $breadcrumbs_code .= $sep;
+						$breadcrumbs_code .= $before . sprintf($text['search'], get_search_query()) . $after;
 					}
 
 				} elseif ( is_day() ) {
-					if ($show_home_link) echo $sep;
-					echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $sep;
-					echo sprintf($link, get_month_link(get_the_time('Y'), get_the_time('m')), get_the_time('F'));
-					if ($show_current) echo $sep . $before . get_the_time('d') . $after;
+					if ($show_home_link) $breadcrumbs_code .= $sep;
+					$breadcrumbs_code .= sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $sep;
+					$breadcrumbs_code .= sprintf($link, get_month_link(get_the_time('Y'), get_the_time('m')), get_the_time('F'));
+					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_time('d') . $after;
 
 				} elseif ( is_month() ) {
-					if ($show_home_link) echo $sep;
-					echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'));
-					if ($show_current) echo $sep . $before . get_the_time('F') . $after;
+					if ($show_home_link) $breadcrumbs_code .= $sep;
+					$breadcrumbs_code .= sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'));
+					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_time('F') . $after;
 
 				} elseif ( is_year() ) {
-					if ($show_home_link && $show_current) echo $sep;
-					if ($show_current) echo $before . get_the_time('Y') . $after;
+					if ($show_home_link && $show_current) $breadcrumbs_code .= $sep;
+					if ($show_current) $breadcrumbs_code .= $before . get_the_time('Y') . $after;
 
 				} elseif ( is_single() && !is_attachment() ) {
-					if ($show_home_link) echo $sep;
+					if ($show_home_link) $breadcrumbs_code .= $sep;
 					if ( get_post_type() != 'post' ) {
 						$post_type = get_post_type_object(get_post_type());
 						$slug = $post_type->rewrite;
 						printf($link, $home_url . $slug['slug'] . '/', $post_type->labels->singular_name);
-						if ($show_current) echo $sep . $before . get_the_title() . $after;
+						if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 					} else {
 						$cat = get_the_category();
 						$cat = $cat[0];
@@ -246,13 +247,13 @@ class Breadcrumbs_Public {
 							$cats = get_category_parents( $cat->term_id, true, $sep);
 							if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
 							$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-							echo $cats;
+							$breadcrumbs_code .= $cats;
 						}
 
 						if ( get_query_var('cpage') ) {
-							echo $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
+							$breadcrumbs_code .= $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
 						} else {
-							if ($show_current) echo $before . get_the_title() . $after;
+							if ($show_current) $breadcrumbs_code .= $before . get_the_title() . $after;
 						}
 					}
 
@@ -260,29 +261,29 @@ class Breadcrumbs_Public {
 				} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() && !is_tag() ) {
 					$post_type = get_post_type_object(get_post_type());
 					if ( get_query_var('paged') ) {
-						echo $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
+						$breadcrumbs_code .= $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
-						if ($show_current) echo $sep . $before . $post_type->label . $after;
+						if ($show_current) $breadcrumbs_code .= $sep . $before . $post_type->label . $after;
 					}
 
 				} elseif ( is_attachment() ) {
-					if ($show_home_link) echo $sep;
+					if ($show_home_link) $breadcrumbs_code .= $sep;
 					$parent = get_post($parent_id);
 					$cat = get_the_category($parent->ID);
 					$cat = $cat[0];
 					if ($cat) {
 						$cats = get_category_parents( (int) $cat, TRUE, $sep);
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-						echo $cats;
+						$breadcrumbs_code .= $cats;
 					}
 					if ($parent_id !== 0)printf($link, get_permalink($parent), $parent->post_title);
-					if ($show_current) echo $sep . $before . get_the_title() . $after;
+					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 
 				} elseif ( is_page() && (!$parent_id) ) {
-					if ($show_current) echo $sep . $before . get_the_title() . $after;
+					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 
 				} elseif ( is_page() && $parent_id ) {
-					if ($show_home_link) echo $sep;
+					if ($show_home_link) $breadcrumbs_code .= $sep;
 					if ($parent_id != $frontpage_id) {
 						$breadcrumbs = array();
 						while ($parent_id) {
@@ -294,44 +295,45 @@ class Breadcrumbs_Public {
 						}
 						$breadcrumbs = array_reverse($breadcrumbs);
 						for ($i = 0; $i < count($breadcrumbs); $i++) {
-							echo $breadcrumbs[$i];
-							if ($i != count($breadcrumbs)-1) echo $sep;
+							$breadcrumbs_code .= $breadcrumbs[$i];
+							if ($i != count($breadcrumbs)-1) $breadcrumbs_code .= $sep;
 						}
 					}
-					if ($show_current) echo $sep . $before . get_the_title() . $after;
+					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 
 				} elseif ( is_tag() ) {
 					if ( get_query_var('paged') ) {
 						$tag_id = get_queried_object_id();
 						$tag = get_tag($tag_id);
-						echo $sep . sprintf($link, get_tag_link($tag_id), $tag->name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
+						$breadcrumbs_code .= $sep . sprintf($link, get_tag_link($tag_id), $tag->name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
-						if ($show_current) echo $sep . $before . sprintf($text['tag'], single_tag_title('', false)) . $after;
+						if ($show_current) $breadcrumbs_code .= $sep . $before . sprintf($text['tag'], single_tag_title('', false)) . $after;
 					}
 
 				} elseif ( is_author() ) {
 					global $author;
 					$author = get_userdata($author);
 					if ( get_query_var('paged') ) {
-						if ($show_home_link) echo $sep;
-						echo sprintf($link, get_author_posts_url($author->ID), $author->display_name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
+						if ($show_home_link) $breadcrumbs_code .= $sep;
+						$breadcrumbs_code .= sprintf($link, get_author_posts_url($author->ID), $author->display_name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
-						if ($show_home_link && $show_current) echo $sep;
-						if ($show_current) echo $before . sprintf($text['author'], $author->display_name) . $after;
+						if ($show_home_link && $show_current) $breadcrumbs_code .= $sep;
+						if ($show_current) $breadcrumbs_code .= $before . sprintf($text['author'], $author->display_name) . $after;
 					}
 
 				} elseif ( is_404() ) {
-					if ($show_home_link && $show_current) echo $sep;
-					if ($show_current) echo $before . $text['404'] . $after;
+					if ($show_home_link && $show_current) $breadcrumbs_code .= $sep;
+					if ($show_current) $breadcrumbs_code .= $before . $text['404'] . $after;
 
 				} elseif ( has_post_format() && !is_singular() ) {
-					if ($show_home_link) echo $sep;
-					echo get_post_format_string( get_post_format() );
+					if ($show_home_link) $breadcrumbs_code .= $sep;
+					$breadcrumbs_code .= get_post_format_string( get_post_format() );
 				}
 
-				echo $wrap_after;
+				$breadcrumbs_code .= $wrap_after;
 
 			}
+			return $breadcrumbs_code;
 	}
 
 }

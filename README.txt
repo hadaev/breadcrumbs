@@ -25,7 +25,7 @@ You can also easily change the link text of the main page, and additional text t
 **Default**<br />
 Template Tag<br />
 `
-<?php do_shortcode('[breadcrumbs position="left" show_home_link=1 show_current=1]'); ?>
+<?php echo do_shortcode('[breadcrumbs position="left" show_home_link=1 show_current=1]'); ?>
 `
 Output sample<br />
 `
