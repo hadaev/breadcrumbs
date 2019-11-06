@@ -134,7 +134,7 @@ class Breadcrumbs_Admin {
 			settings_fields('true_options');
 			do_settings_sections('breadcrumbs');
 			?>
-            <span class="description"><?php _e('Options with * are transmitted using the shortcode', 'Breadcrumbs')?></span>
+            <span class="description">"*" - <?php _e('Options with * are transmitted using the shortcode', 'Breadcrumbs')?></span>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 			</p>

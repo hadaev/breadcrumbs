@@ -20,6 +20,9 @@
   font-size: 14px;
   line-height: 28px;
 }
+.bc-bg-sep li {
+  list-style-type: none !important;
+}
 .bc-bg-sep li.bc-sep {
   padding: 0;
   display: none;
@@ -39,10 +42,10 @@
 }
 .bc-bg-sep .bc-item,
 .bc-bg-sep .bc-current {
-  padding-left: 28px;
-  padding-right: 8px;
+  padding-left: 28px !important;
+  padding-right: 8px !important;
   position: relative;
-  margin-bottom: 2px;
+  margin: 0 !important;
   height: 30px;
 }
 .bc-bg-sep .bc-item:after,

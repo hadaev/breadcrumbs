@@ -242,10 +242,13 @@ class Breadcrumbs_Public {
 					} else {
 						$cat = get_the_category();
 						$cat = $cat[0];
-						$cats = get_category_parents( $cat->term_id, TRUE, $sep);
-						if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-						echo $cats;
+						if ($cat){
+							$cats = get_category_parents( $cat->term_id, true, $sep);
+							if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
+							$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
+							echo $cats;
+						}
+
 						if ( get_query_var('cpage') ) {
 							echo $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
 						} else {
@@ -254,7 +257,7 @@ class Breadcrumbs_Public {
 					}
 
 					// custom post type
-				} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
+				} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() && !is_tag() ) {
 					$post_type = get_post_type_object(get_post_type());
 					if ( get_query_var('paged') ) {
 						echo $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
