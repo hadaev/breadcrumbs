@@ -234,11 +234,12 @@ class Breadcrumbs_Public {
 					if ($show_current) $breadcrumbs_code .= $before . get_the_time('Y') . $after;
 
 				} elseif ( is_single() && !is_attachment() ) {
+					var_dump('single');
 					if ($show_home_link) $breadcrumbs_code .= $sep;
 					if ( get_post_type() != 'post' ) {
 						$post_type = get_post_type_object(get_post_type());
 						$slug = $post_type->rewrite;
-						printf($link, $home_url . $slug['slug'] . '/', $post_type->labels->singular_name);
+						$breadcrumbs_code .= sprintf($link, $home_url . $slug['slug'] . '/', $post_type->labels->singular_name);
 						if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 					} else {
 						$cat = get_the_category();
@@ -260,10 +261,12 @@ class Breadcrumbs_Public {
 					// custom post type
 				} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() && !is_tag() ) {
 					$post_type = get_post_type_object(get_post_type());
+					var_dump($post_type);
 					if ( get_query_var('paged') ) {
 						$breadcrumbs_code .= $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
 						if ($show_current) $breadcrumbs_code .= $sep . $before . $post_type->label . $after;
+						var_dump($sep . $before . $post_type->label . $after);
 					}
 
 				} elseif ( is_attachment() ) {
@@ -276,7 +279,7 @@ class Breadcrumbs_Public {
 						$cats = preg_replace('#<a([^>]+)>([^<]+)</a>#', $link_before . '<a$1>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
 						$breadcrumbs_code .= $cats;
 					}
-					if ($parent_id !== 0)printf($link, get_permalink($parent), $parent->post_title);
+					if ($parent_id !== 0)$breadcrumbs_code .= sprintf($link, get_permalink($parent), $parent->post_title);
 					if ($show_current) $breadcrumbs_code .= $sep . $before . get_the_title() . $after;
 
 				} elseif ( is_page() && (!$parent_id) ) {
