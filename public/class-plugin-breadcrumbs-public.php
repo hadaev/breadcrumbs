@@ -234,7 +234,6 @@ class Breadcrumbs_Public {
 					if ($show_current) $breadcrumbs_code .= $before . get_the_time('Y') . $after;
 
 				} elseif ( is_single() && !is_attachment() ) {
-					var_dump('single');
 					if ($show_home_link) $breadcrumbs_code .= $sep;
 					if ( get_post_type() != 'post' ) {
 						$post_type = get_post_type_object(get_post_type());
@@ -261,12 +260,10 @@ class Breadcrumbs_Public {
 					// custom post type
 				} elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() && !is_tag() ) {
 					$post_type = get_post_type_object(get_post_type());
-					var_dump($post_type);
 					if ( get_query_var('paged') ) {
 						$breadcrumbs_code .= $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
 					} else {
 						if ($show_current) $breadcrumbs_code .= $sep . $before . $post_type->label . $after;
-						var_dump($sep . $before . $post_type->label . $after);
 					}
 
 				} elseif ( is_attachment() ) {
