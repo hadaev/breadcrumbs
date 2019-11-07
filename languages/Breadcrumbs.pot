@@ -1,0 +1,142 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Breadcrumbs\n"
+"POT-Creation-Date: 2019-11-07 08:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: hadal3000 <hadaev.alexandr@gmail.com>\n"
+"Language-Team: hadal3000 <hadaev.alexandr@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-KeywordsList: _;_e;__;gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ..\\classes\n"
+
+#: ../wp-content/plugins/breadcrumbs/admin/settings.php:76
+msgid "Breadcrumbs position"
+msgstr ""
+
+#: ../wp-content/plugins/breadcrumbs/admin/settings.php:76
+msgid "Breadcrumbs"
+msgstr ""
+
+msgid "This code must be inserted on the page where the breadcrumbs should be."
+msgstr ""
+
+msgctxt "Записи с тегом"
+msgid "Posts Tagged"
+msgstr ""
+
+msgid "Author Articles"
+msgstr ""
+
+msgid "Comments Page"
+msgstr ""
+
+msgid "Show home link"
+msgstr ""
+
+msgid "Home Page"
+msgstr ""
+
+msgid "Show breadcrumbs on the home page"
+msgstr ""
+
+msgid "Show title of current page"
+msgstr ""
+
+msgid "Current Page"
+msgstr ""
+
+msgid "Enter your delimiter character or enable the default delimiter"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Choose link color"
+msgstr ""
+
+msgid "Choose the color of the current link"
+msgstr ""
+
+msgid "Choose the color of the separator"
+msgstr ""
+
+msgid "Default delimiter"
+msgstr ""
+
+msgid "Default Separator Background Color"
+msgstr ""
+
+msgid "Posts Tagged"
+msgstr ""
+
+msgid "Search Results for"
+msgstr ""
+
+msgid "Home link text"
+msgstr ""
+
+msgid "Enter the link text, by default \"Home\""
+msgstr ""
+
+msgid ""
+"Enter the text for the search results page, the default is \"Search Results "
+"for\""
+msgstr ""
+
+msgid "Text for the search page"
+msgstr ""
+
+msgid "Text for author page"
+msgstr ""
+
+msgid "Enter the text for the author’s page, by default \"Author articles\""
+msgstr ""
+
+msgid "Text for page 404"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Enter the text for page 404, the default is \"Error\""
+msgstr ""
+
+msgid "Pagination Page Text"
+msgstr ""
+
+msgid "Enter the text of the pagination page, the default is \"Page\""
+msgstr ""
+
+msgid "Text for the comment page"
+msgstr ""
+
+msgid "Enter text for the comment page, the default is \"Comments page\""
+msgstr ""
+
+msgid "Example"
+msgstr ""
+
+msgid "Text for tag page"
+msgstr ""
+
+msgid "Enter the text for the tag page, the default is \"Posts Tagged\""
+msgstr ""
+
+msgid "Text copied!"
+msgstr ""
+
+msgid "Custom bread crumbs for your site."
+msgstr ""
+
+msgctxt "Опции передаются с помощью шорткода"
+msgid "Options are passed using a shortcode"
+msgstr ""
