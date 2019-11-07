@@ -1,0 +1,102 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+.bc-display-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.bc-flex-justify-content-left {
+  justify-content: flex-start;
+}
+.bc-flex-justify-content-right {
+  justify-content: flex-end;
+}
+.bc-flex-justify-content-center {
+  justify-content: center;
+}
+.bc-bg-sep .bc-list-item {
+  font-size: 14px;
+  line-height: 28px;
+}
+.bc-bg-sep li {
+  list-style-type: none !important;
+}
+.bc-bg-sep li.bc-sep {
+  padding: 0;
+  display: none;
+}
+.bc-bg-sep > * {
+  min-height: 30px;
+  background-color: #eee;
+}
+.bc-bg-sep > *:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-left: 12px;
+}
+.bc-bg-sep > *:first-child:before {
+  content: "";
+  display: none;
+}
+.bc-bg-sep .bc-item,
+.bc-bg-sep .bc-current {
+  padding-left: 28px !important;
+  padding-right: 8px !important;
+  position: relative;
+  margin: 0 !important;
+  height: 30px;
+}
+.bc-bg-sep .bc-item:after,
+.bc-bg-sep .bc-current:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -16px;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-left: 16px solid #eee;
+  border-bottom: 15px solid transparent;
+  z-index: 1;
+}
+.bc-bg-sep .bc-item:before,
+.bc-bg-sep .bc-current:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+.bc-bg-sep .bc-item:last-child,
+.bc-bg-sep .bc-current:last-child {
+  border-right: none;
+}
+.bc-bg-sep .bc-item:last-child a, .bc-bg-sep .bc-item:last-child .no-active,
+.bc-bg-sep .bc-current:last-child a,
+.bc-bg-sep .bc-current:last-child .no-active {
+  color: lightgrey;
+}
+.bc-bg-sep .bc-item a,
+.bc-bg-sep .bc-current a {
+  line-height: 30px;
+}
+.bc-bg-sep .bc-item a:hover,
+.bc-bg-sep .bc-current a:hover {
+  text-decoration: none;
+}
+.bc-bg-sep .bc-item span,
+.bc-bg-sep .bc-current span {
+  padding: 0;
+  font-size: 14px;
+}
+.bc-bg-sep .bc-current {
+  position: relative;
+  line-height: 30px;
+}
+
+/*# sourceMappingURL=plugin-breadcrumbs-public.css.map */

@@ -1,0 +1,86 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+#bc_shortcode {
+  width: 100%;
+  max-width: 580px;
+}
+
+#bc-form input[type=color i] {
+  width: 44px;
+  height: 23px;
+}
+#bc-form input.bc-color-input {
+  width: 70px;
+  height: 23px;
+  vertical-align: bottom;
+}
+
+#bc-message {
+  position: absolute;
+  top: -15px;
+  left: 10px;
+  padding: 5px;
+  background-color: black;
+  border-radius: 3px;
+  color: white;
+  opacity: 0;
+}
+#bc-message:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 2px;
+  border: 5px solid transparent;
+  border-top: 5px solid black;
+}
+
+#bc_check_sep_label {
+  position: relative;
+}
+#bc_check_sep_label:after {
+  content: "";
+  width: 150px;
+  height: 30px;
+  background: url("../image/sep.png") center/contain no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*# sourceMappingURL=plugin-breadcrumbs-admin.css.map */
